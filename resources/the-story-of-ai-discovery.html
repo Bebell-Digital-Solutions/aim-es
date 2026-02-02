@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Story of AI Discovery - AIM™</title>
+    
+    <!-- Import Inter font (as per guidelines) -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Font Awesome) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+	<link rel="icon" href="https://bucket.mlcdn.com/a/3336/3336910/images/c6f729e3f2ce7e2bc59bf6037f6fe0f491d94819.png">
+  
+   
+	
+	
+	
+	
+	<style>
+        /* --- AIM Brand Styles (from Knowledge Base) --- */
+      /* --- AIM Brand Styles (from Knowledge Base) --- */
+        :root {
+            --skin-color: #ff5011;
+            --mirage-color: hsl(210, 10%, 23%);
+            --title-color: hsl(242, 8%, 98%);
+            --text-color: hsl(242, 8%, 80%);
+            --body-color: #0d0d0d;
+            --box-color: hsl(242, 14%, 12%);
+            --body-font: 'Inter', sans-serif;
+            --small-font-size: 0.95rem;
+            --h3-font-size: 1.25rem;
+            --smaller-font-size: 0.75rem;
+            --mb15: 0.75rem;
+            --mb3: 1.5rem;
+        }
+        
+      
+        
+
+        /* --- Base & Scrollbar --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: var(--body-font);
+            background-color: var(--body-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 8rem; /* Space for fixed nav */
+            overflow-x: hidden;
+        }
+        main { max-width: 980px; margin: 0 auto; padding: 0 1rem; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        a { text-decoration: none; cursor: pointer; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #333; }
+        ::-webkit-scrollbar-thumb { background: var(--skin-color); border-radius: 4px; }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /* Utility container class for maximum content width */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        
+        
+        
+ 
+        
+        a { 
+            text-decoration: none; /* REMOVED UNDERLINE from all links */
+            cursor: pointer; 
+        }
+        
+        @keyframes fadeInPage {
+            to { opacity: 1; }
+        }
+
+        /* Utility container class for maximum content width */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+    /* =========================== */
+        /* SECTION 4: NAVIGATION BAR */
+        /* =========================== */
+        
+        #nav-bar {
+            position: fixed; 
+            top: 2rem; 
+            left: 50%; 
+            transform: translateX(-50%);
+            background: rgba(25, 25, 25, 0.85); 
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--box-color); 
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem; 
+            display: flex; 
+            align-items: center;
+            max-width: 1100px; 
+            width: 90%; 
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+        #nav-logo img { height: 35px; }
+        
+        /* Desktop: nav-menu contains all links and is flexed */
+        #nav-menu { 
+            display: flex; 
+            gap: 1.5rem; 
+            margin-left: auto; 
+            align-items: center; 
+        }
+
+        /* Nav links and CTA */
+        .nav-link { 
+            color: var(--text-color); 
+            transition: color 0.3s, transform 0.2s; 
+            font-weight: 500; 
+            position: relative;
+        }
+        .nav-link:hover { 
+            color: var(--skin-color); 
+            transform: translateY(-1px); 
+        }
+        
+        .nav-cta {
+            background: linear-gradient(90deg, var(--skin-color), #d43a00);
+            color: var(--title-color); 
+            padding: 0.5rem 1rem; 
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(255, 80, 17, 0.4); 
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .nav-cta:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(255, 80, 17, 0.5); 
+        }
+        
+        .has-submenu { position: relative; }
+        
+        /* Submenu Default State (Hidden - Desktop) */
+        .submenu-courses {
+            position: absolute; 
+            top: 100%; 
+            left: 50%; 
+            transform: translateX(-50%);
+            background: var(--box-color); 
+            border-radius: 0.5rem; 
+            padding: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+            opacity: 0; 
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, top 0.3s; 
+            width: 310px;
+            z-index: 1001;
+            margin-left: 0;
+            padding-left: 0.75rem;
+            flex-direction: column;
+        }
+        
+        /* Submenu Active State (Shown via JavaScript click - Desktop) */
+        .submenu-courses.active { 
+            opacity: 1; 
+            visibility: visible;
+            top: calc(100% + 15px);
+        }
+        
+        .submenu-link { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+            color: var(--text-color); 
+            padding: 0.5rem; 
+            border-radius: 0.25rem; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
+        .submenu-link:hover { 
+            background-color: rgba(255, 80, 17, 0.1); 
+            color: var(--skin-color); 
+        }
+        .submenu-link i { width: 15px; text-align: center; }
+
+        /* Mobile visibility controls (Default/Desktop state) */
+        #mobile-menu-toggle { 
+            display: none; 
+            border: none;
+            background: transparent;
+            color: var(--skin-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .nav-cta.mobile-cta-only { display: none; }
+        .nav-cta.desktop-cta-only { display: block; }
+
+
+
+
+        /* --- Video Embedding (NEW) --- */
+        .video-container {
+            position: relative;
+            width: 100%;
+            /* 16:9 aspect ratio */
+            padding-bottom: 56.25%; 
+            margin: 1.5rem 0; 
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        /* --- End Video Embedding --- */
+
+
+
+
+
+        /* --- Hero Section & Banners --- */
+        .top-banner {
+            width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            margin-bottom: 4rem;
+            display: block;
+        }
+        
+        .centered-image {
+            display: block;
+            margin: 0 auto;
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+
+
+
+        /* --- Divider Banner --- */
+        .divider-banner {
+            width: 100%;
+            height: 200px;
+            border-radius: 1rem;
+            overflow: hidden;
+            margin: 3rem 0;
+            background-color: var(--box-color);
+            padding: 0;
+        }
+        
+        .divider-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+
+
+		
+
+        /* --- Content Sections --- */
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--skin-color);
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            color: var(--skin-color);
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: var(--h3-font-size);
+            color: var(--title-color);
+            text-align: left;
+            margin-top: 1.5rem; /* Default margin-top */
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 i {
+            color: var(--skin-color);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        
+        
+        
+        
+        /* Specific override for Timeline heading space and alignment */
+        #timeline-heading {
+            margin-top: 100px; 
+            text-align: left !important; /* Ensure alignment is respected */
+        }
+
+        .story-section {
+            background-color: var(--box-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            /* For scroll animation */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .story-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .story-text {
+            font-size: 1rem;
+            color: var(--text-color);
+            text-align: justify;
+            white-space: pre-line;
+        }
+        
+        .story-text strong {
+            color: var(--skin-color);
+            font-weight: 500;
+        }
+        
+        .story-text em {
+            color: var(--title-color);
+            font-style: italic;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+
+        /* --- Timeline (Hinton) --- */
+        .timeline {
+            position: relative;
+            margin: 2rem 0 1rem 0;
+            padding-left: 1.6rem;
+            border-left: 3px solid var(--skin-color);
+        }
+
+        .timeline-event {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            /* For scroll animation */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, transform 0.3s ease;
+        }
+        
+        .timeline-event.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-event:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-event:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-color: var(--skin-color);
+            border-radius: 50%;
+            border: 3px solid var(--box-color);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-event:hover::before {
+            background-color: var(--body-color);
+            border-color: var(--skin-color);
+            transform: scale(1.1);
+        }
+
+        .event-year {
+            font-weight: 600;
+            color: var(--skin-color);
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .event-description {
+            font-size: 1rem;
+            color: var(--text-color);
+            white-space: pre-line;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        /* --- Founders Section (OpenAI) --- */
+        .founders-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .founder-card {
+            background-color: var(--body-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            width: 255px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* For scroll animation */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease;
+        }
+        
+        .founder-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .founder-card:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        }
+
+        .founder-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--skin-color);
+            background-color: #444;
+            display: inline-block;
+        }
+        
+        .founder-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--title-color);
+            text-align: left;
+            display: block;
+            margin-top: 0;
+        }
+        
+        .founder-card h3.founder-name {
+            text-align: left;
+            display: block;
+            margin-top: 0;
+        }
+
+        .founder-role {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--skin-color);
+            text-align: left;
+            display: block;
+        }
+
+        .founder-description {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            text-align: left;
+        }
+
+        .team-list {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--text-color);
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        
+        .team-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        
+        
+        
+        
+        /* --- Hero Section & Banners --- */
+.top-banner {
+  /* (existing styles) */
+  width: 100%; 
+  height: auto; 
+  border-radius: 1rem;
+  margin-bottom: 0; 
+  display: block;
+}
+
+/* --- New Rule to Constrain and Center the Banner --- */
+#top-banner-image {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}  
+     
+        
+        
+
+        /* --- Dropdown / Details --- */
+        details {
+            margin-top: 1.5rem;
+            background-color: var(--body-color);
+            border-radius: 0.75rem;
+            border: 1px solid var(--box-color);
+            transition: all 0.3s ease;
+        }
+        details:hover {
+            border-color: var(--mirage-color);
+        }
+        summary {
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+            color: var(--skin-color);
+			font-size: 22px;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary:after {
+            content: '▾';
+            color: var(--skin-color);
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+        details[open] summary:after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .details-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            border-top: 1px solid var(--box-color);
+        }
+        .details-content h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .details-content .story-text {
+            margin-top: 1rem;
+        }
+        
+        
+        
+        
+        
+        
+        
+        /* --- Icon Section Styles --- */
+        .icon-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: var(--mb2);
+            margin-top: 1.5rem;
+        }
+        .icon-container {
+            flex-shrink: 0;
+            width: 70px;
+            height: 70px;
+            background: var(--box-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid var(--skin-color);
+        }
+        .icon-container:hover {
+            background: var(--skin-color);
+            transform: scale(1.1);
+        }
+        .icon-container i {
+            font-size: 1.8rem;
+            color: var(--skin-color);
+            transition: color 0.3s ease;
+        }
+        .icon-container:hover i {
+            color: var(--title-color);
+        }
+        .icon-content {
+            flex: 1;
+        }
+        .icon-content h3 {
+            font-size: 1.25rem; /* Using a fixed size here for clarity */
+            font-weight: 500;
+            margin-bottom: var(--mb05);
+            color: var(--title-color);
+            margin-top: 0;
+            text-align: left;
+            display: block;
+        }
+        .icon-content p {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            text-align: justify;
+        }
+        /* --- End Icon Section Styles --- */
+        
+        
+        
+        
+        
+        
+      
+
+
+
+ /* Page loader container with black background */
+  .page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Added text header */
+  .loader-header {
+    color: white;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Your progress bar - unchanged */
+  .progress {
+    width: 272.8px;
+    height: 41.7px;
+    border-radius: 28.8px;
+    color: #ff5011;
+    background-color: #000;
+    border: 2.9px solid;
+    position: relative;
+  }
+
+  .progress::before {
+    content: "";
+    position: absolute;
+    margin: 2.9px;
+    inset: 0 100% 0 0;
+    border-radius: inherit;
+    background: currentColor;
+    animation: progress-pf82op 1.5s forwards;
+  }
+
+  @keyframes progress-pf82op {
+    100% {
+      inset: 0;
+    }
+  }
+
+  /* Hide transition */
+  .page-loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* --- FOOTER STYLES (FIXED/UPDATED) --- */
+      /* --- Footer (Main Page Footer) --- */
+        .footer {
+            padding-top: 5rem;
+        }
+
+        .footer-bg {
+            background-color: var(--box-color);
+            padding: 3rem 0 3.5rem;
+        }
+        
+        .footer-container {
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 1.6rem;
+        }
+
+        .footer-title {
+            font-size: var(--h3-font-size);
+            margin-bottom: 0.25rem;
+            margin-top: 0;
+            color: var(--title-color);
+        }
+
+        .footer-subtitle {
+            font-size: var(--small-font-size);
+            color: var(--title-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-self: center;
+            column-gap: 2rem;
+            color: var(--title-color);
+        }
+
+        .footer-links:hover {
+            color: var(--skin-color);
+        }
+
+        .footer-socials {
+            justify-self: flex-end;
+            display: flex; 
+            align-items: center;
+            gap: var(--mb15);
+        }
+
+        .footer-social {
+            font-size: 1.25rem;
+            color: var(--title-color);
+            transition: color 0.3s;
+        }
+
+        .footer-social:hover {
+            color: var(--skin-color);
+            cursor: pointer; 
+        }
+
+        .footer-copy {
+            font-size: var(--smaller-font-size);
+            text-align: center;
+            margin-top: 4.5rem;
+        }
+
+        .footer-copy a {
+            color: var(--title-color);
+        }
+
+        .footer-copy a:hover {
+            color: var(--skin-color);
+        }
+
+        .footer-title,
+        .footer-subtitle,
+        .footer-links,
+        .footer-social,
+        .footer-copy a {
+            color: var(--title-color);
+        }
+        
+        
+        
+        
+        
+
+        /* Footer Logo Styles (Desktop) */
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            gap: 0.5rem; 
+        }
+        .footer-brand-text { 
+            text-align: left;
+        }
+        .footer-logo {
+            width: 30px;
+            height: auto;
+            display: block;
+        }
+
+        .footer-logo:hover {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /* --- Responsive Styles --- */
+        @media screen and (max-width: 767px) {
+            /* General mobile layout adjustments */
+            .footer-container {
+                grid-template-columns: 1fr;
+                row-gap: 3rem;
+                text-align: center;
+            }
+            .footer-brand {
+                align-items: center; /* Center align on mobile */
+                text-align: center;
+                justify-content: center;
+            }
+            .footer-brand-text {
+                text-align: center; /* Center align text on mobile */
+            }
+            .footer-socials {
+                justify-content: center;
+                justify-self: center;
+            }
+            .footer-links {
+                flex-direction: column;
+                row-gap: 1.5rem;
+                justify-self: center;
+            }
+            .footer-bg {
+                padding: 2rem 0 3rem;
+            }
+            .footer-copy {
+                margin-top: var(--mb3);
+            }
+        }
+        
+        
+        
+        
+        
+        
+        /* --- Responsive Design for Nav/Content (Retained from original) --- */
+        @media (max-width: 1024px) {
+             /* Hide nav text on tablets and smaller except CTA */
+            #nav-menu > .nav-link:not(.nav-cta),
+            #nav-menu > .nav-item {
+                display: none;
+            }
+            .nav-cta {
+                margin-left: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+                padding-top: 7rem;
+                max-width: 100%;
+            }
+
+            .story-section {
+                padding: 1.5rem;
+            }
+            
+            .timeline {
+                padding-left: 1rem;
+                border-left-width: 2px;
+            }
+            
+            .timeline-event::before {
+                left: -29px;
+            }
+
+            .founders-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .founder-card {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .icon-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .icon-content h3, .icon-content p {
+                text-align: center;
+            }
+        }
+
+
+
+/* Base snowflake layer with blurry effects */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: 
+    /* Large blurry snowflakes */
+    radial-gradient(8px 8px at 10% 20%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.3) 70%, transparent 100%),
+    radial-gradient(12px 12px at 20% 30%, rgba(255, 255, 255, 0.5) 25%, rgba(255, 255, 255, 0.2) 60%, transparent 100%),
+    radial-gradient(6px 6px at 30% 10%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0.25) 80%, transparent 100%),
+    radial-gradient(10px 10px at 40% 40%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.15) 75%, transparent 100%),
+    radial-gradient(14px 14px at 50% 60%, rgba(255, 255, 255, 0.55) 30%, rgba(255, 255, 255, 0.2) 65%, transparent 100%),
+    radial-gradient(7px 7px at 60% 80%, rgba(255, 255, 255, 0.65) 45%, rgba(255, 255, 255, 0.3) 85%, transparent 100%),
+    radial-gradient(9px 9px at 70% 50%, rgba(255, 255, 255, 0.45) 35%, rgba(255, 255, 255, 0.18) 70%, transparent 100%),
+    radial-gradient(11px 11px at 80% 20%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.22) 75%, transparent 100%),
+    radial-gradient(5px 5px at 90% 70%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0.35) 90%, transparent 100%),
+    radial-gradient(15px 15px at 15% 90%, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0.12) 55%, transparent 100%),
+    
+    /* Extra blurry medium snowflakes */
+    radial-gradient(4px 4px at 25% 45%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0.1) 90%, transparent 100%),
+    radial-gradient(6px 6px at 75% 35%, rgba(255, 255, 255, 0.7) 15%, rgba(255, 255, 255, 0.05) 85%, transparent 100%),
+    radial-gradient(3px 3px at 45% 75%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.15) 95%, transparent 100%),
+    radial-gradient(8px 8px at 85% 65%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.08) 80%, transparent 100%);
+  
+  background-repeat: no-repeat;
+  animation: snowfall 15s linear infinite;
+  filter: blur(0.5px); /* Slight overall blur for softness */
+}
+
+/* Medium blurry snowflakes layer */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: 
+    /* Medium blurry snowflakes */
+    radial-gradient(4px 4px at 5% 15%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.1) 90%, transparent 100%),
+    radial-gradient(7px 7px at 25% 35%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.08) 80%, transparent 100%),
+    radial-gradient(3px 3px at 35% 5%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0.15) 95%, transparent 100%),
+    radial-gradient(5px 5px at 45% 45%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0.05) 70%, transparent 100%),
+    radial-gradient(6px 6px at 55% 65%, rgba(255, 255, 255, 0.45) 35%, rgba(255, 255, 255, 0.1) 75%, transparent 100%),
+    radial-gradient(3.5px 3.5px at 65% 85%, rgba(255, 255, 255, 0.55) 40%, rgba(255, 255, 255, 0.12) 85%, transparent 100%),
+    radial-gradient(4.5px 4.5px at 85% 25%, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0.06) 65%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 95% 55%, rgba(255, 255, 255, 0.65) 50%, rgba(255, 255, 255, 0.2) 95%, transparent 100%),
+    radial-gradient(8px 8px at 15% 75%, rgba(255, 255, 255, 0.25) 20%, rgba(255, 255, 255, 0.04) 60%, transparent 100%);
+  
+  background-repeat: no-repeat;
+  animation: snowfall 20s linear infinite;
+  filter: blur(0.8px); /* More blur for background layer */
+  opacity: 0.8;
+}
+
+/* Additional layer for extra blurry small snowflakes */
+.snowflakes-blurry {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9997;
+  background-image: 
+    /* Very blurry small snowflakes */
+    radial-gradient(2px 2px at 12% 28%, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 0.05) 100%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 32% 18%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.1) 100%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 48% 52%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.03) 100%, transparent 100%),
+    radial-gradient(1px 1px at 68% 72%, rgba(255, 255, 255, 0.6) 80%, rgba(255, 255, 255, 0.15) 100%, transparent 100%),
+    radial-gradient(3px 3px at 82% 38%, rgba(255, 255, 255, 0.35) 40%, rgba(255, 255, 255, 0.07) 100%, transparent 100%),
+    radial-gradient(1.8px 1.8px at 22% 88%, rgba(255, 255, 255, 0.45) 65%, rgba(255, 255, 255, 0.09) 100%, transparent 100%),
+    radial-gradient(2.2px 2.2px at 58% 12%, rgba(255, 255, 255, 0.4) 55%, rgba(255, 255, 255, 0.06) 100%, transparent 100%),
+    radial-gradient(0.8px 0.8px at 88% 68%, rgba(255, 255, 255, 0.7) 85%, rgba(255, 255, 255, 0.2) 100%, transparent 100%);
+  
+  background-repeat: no-repeat;
+  animation: snowfall 25s linear infinite;
+  filter: blur(1.2px); /* Maximum blur for distant effect */
+  opacity: 0.6;
+}
+
+/* Enhanced snowfall animation with slight horizontal movement */
+@keyframes snowfall {
+  0% {
+    transform: translateY(-100%) translateX(0);
+  }
+  25% {
+    transform: translateY(-50%) translateX(5px);
+  }
+  50% {
+    transform: translateY(0%) translateX(0);
+  }
+  75% {
+    transform: translateY(50%) translateX(-5px);
+  }
+  100% {
+    transform: translateY(100vh) translateX(0);
+  }
+}
+
+/* Alternative animation for some randomness */
+@keyframes snowfall-alt {
+  0% {
+    transform: translateY(-100%) translateX(10px);
+  }
+  50% {
+    transform: translateY(0%) translateX(-10px);
+  }
+  100% {
+    transform: translateY(100vh) translateX(10px);
+  }
+}
+
+/* Add this class to an element in your HTML for the third layer */
+/* <div class="snowflakes-blurry"></div> */
+
+
+
+
+		
+
+    </style>
+
+<!-- Page Loader HTML -->
+<script>
+    // --- Page Loader Logic ---
+    function showLoader() {
+        const loader = document.createElement('div');
+        loader.className = 'page-loader';
+        loader.innerHTML = `
+            <div class="loader-header">Loading...</div>
+            <div class="progress"></div>
+        `;
+        document.body.appendChild(loader);
+        return loader;
+    }
+
+    function initLoader() {
+        const loader = showLoader();
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            setTimeout(() => loader.remove(), 500); // Wait for fade out
+        }, 1500); // Adjust duration as needed
+    }
+
+    document.addEventListener('DOMContentLoaded', initLoader);
+</script>
+</head>
+<body>
+
+    <!-- =========================== -->
+    <!-- SECTION 11: NAVIGATION BAR HTML -->
+    <!-- =========================== -->
+    <nav id="nav-bar">
+        <a href="/" id="nav-logo">
+            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/b28800186bb16bf422fabd87ca9f369da73e62e9.png" alt="AIM Logo" />
+        </a>
+        
+        <!-- MOBILE TOGGLE BUTTON -->
+        <button id="mobile-menu-toggle" aria-label="Open Menu">
+            <i class="fa-solid fa-bars" id="toggle-icon"></i>
+        </button>
+        
+        <div id="nav-menu">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/about" class="nav-link" style="color: var(--skin-color);">About</a>
+            
+            <!-- Courses Dropdown -->
+            <div class="nav-item has-submenu">
+                <a href="#" class="nav-link" id="courses-link">Courses <i class="fa-solid fa-angle-down" style="font-size: 0.8em;"></i></a>
+                <div class="submenu-courses" id="courses-submenu">
+                    <a href="/courses#all" class="submenu-link"><i class="fa-solid fa-list-ul"></i> All Courses</a>
+                    <a href="/courses#foundation" class="submenu-link"><i class="fa-solid fa-brain"></i> AI Foundation</a>
+                    <a href="/courses#prompting" class="submenu-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Craftsmanship</a>
+                    <a href="#building-ai-brain" class="submenu-link"><i class="fa-solid fa-database"></i> Building Your AI Brain</a>
+                    <a href="#autonomous-ai-agents" class="submenu-link"><i class="fa-solid fa-robot"></i> Autonomous AI Agents</a>
+                    <a href="/5-security-privacy-compliance" class="submenu-link"><i class="fa-solid fa-shield"></i> Security, Privacy & Compliance</a>
+                
+                </div>
+            </div>
+            
+            <a href="/pricing-page" class="nav-link">Pricing</a>
+            <a href="/contact" class="nav-link">Contact</a>
+            
+            <!-- DESKTOP CTA -->
+            <a href="/login" class="nav-cta desktop-cta-only">MEMBER LOGIN</a>
+            
+            <!-- MOBILE CTA -->
+            <a href="/login" class="nav-cta mobile-cta-only">MEMBER LOGIN</a>
+        </div>
+    </nav>
+ 
+    
+    
+
+    
+    <!-- Top Banner Image -->
+<img src="https://bucket.mlcdn.com/a/3336/3336910/images/5de73a16c6fada8b9f50b0875722eb9f337f1b96.jpeg"
+     alt="AIM Services Banner"
+     class="top-banner"
+     id="top-banner-image"
+     onerror="this.src='https://bucket.mlcdn.com/a/3336/3336910/images/5de73a16c6fada8b9f50b0875722eb9f337f1b96.jpeg'">
+
+
+ 
+    
+
+    <!-- Page Intro Headline --><div class="page-headline" style="text-align: center; margin-bottom: 3rem; margin-top: 1rem;">
+        <h1 style="color: var(--skin-color); font-size: 2.5rem; margin-bottom: 0.5rem;">The Story of AI Discovery</h1>
+        <p style="font-size: 1.1rem; color: var(--text-color); margin-top: 0;">From the Godfathers of AI to its modern pioneers.</p>
+    </div>
+    
+    <!-- Main Content Area --><main id="ai-story-page">
+        <!-- Section 1: Geoffrey Hinton --><section class="story-section">
+            <h2>The 'Godfather' of AI: Geoffrey Hinton</h2>
+            
+            <!-- Image Placeholder for Hinton --><img src="https://ik.imagekit.io/bebell/Project%20Freedom/AIM%E2%84%A2%20AI%20Mastery%20Program/f2c34455-91a4-48bc-92af-91cf9cbb1ae3.jpg"
+                alt="Portrait of Geoffrey Hinton"
+                class="founder-photo"
+                style="float: left; margin-right: 1.5rem; margin-bottom: 1rem; width: 300px; height: 300px; border-radius: 1rem;"
+                onerror="this.src='https://placehold.co/300x300/444444/ffffff?text=Image'">
+
+            <h3>Why is he Called the "Godfather of AI"?</h3>
+            <p class="story-text">
+                Geoffrey Hinton is often called the "Godfather of AI," alongside Yann LeCun and Yoshua Bengio, collectively known as the "AI Titans." This title honors his decades-long advocacy for neural networks and deep learning, even when these ideas were unpopular and underfunded.
+            </p>
+
+            <!-- Dropdown Section --><details>
+                <summary>More Information</summary>
+                <div class="details-content">
+                    <p class="story-text">
+                        His foundational work in the 1980s and 1990s laid the groundwork for modern AI learning systems. His persistence paid off spectacularly in the 2010s, when his ideas began outperforming all other AI techniques, sparking the current AI boom. Many of his students now lead AI research at top tech companies.
+                        <br><br>
+                        In essence, Hinton nurtured neural networks through their "childhood," defended them against skeptics, and provided the blueprints for technologies powering systems like ChatGPT and Google Translate.
+                    </p>
+                    
+                    <!-- UPDATED: Responsive YouTube Video Embed with new URL -->
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/QH6QqjIwv68" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            title="Geoffrey Hinton on the Future of AI"
+                        ></iframe>
+                    </div>
+                    <!-- END UPDATED VIDEO -->
+
+                    <h3><i class="fas fa-brain"></i> What He Was Working On & His Key Discoveries</h3>
+                    <p class="story-text" style="margin-bottom: 0;">
+                        Hinton dedicated his career to making machines learn inspired by the human brain, focusing on Artificial Neural Networks (ANNs).
+                        <br><br>
+                        Key contributions include:
+                    </p>
+
+                    <!-- Icon Section Start --><div class="icon-section">
+                        <div class="icon-container">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="icon-content">
+                            <h3>The Backpropagation Algorithm (1986)</h3>
+                            <p>Hinton, with Rumelhart and Williams, popularized backpropagation, the fundamental learning algorithm for neural networks. It allows networks to learn from mistakes by adjusting internal parameters.</p>
+                        </div>
+                    </div>
+
+                    <div class="icon-section">
+                        <div class="icon-container">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="icon-content">
+                            <h3>Deep Learning Foundations</h3>
+                            <p>In the late 80s and 90s, he worked on deep architectures like Boltzmann Machines and Helmholtz Machines, proving deep networks could learn hierarchical features.</p>
+                        </div>
+                    </div>
+
+                    <div class="icon-section" style="margin-bottom: 0;">
+                        <div class="icon-container">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div class="icon-content">
+                            <h3>The Breakthrough: ImageNet (2012)</h3>
+                            <p>Hinton's AlexNet model dramatically improved image classification accuracy, triggering the AI boom and industry-wide adoption of deep learning.</p>
+                        </div>
+                    </div>
+                    <!-- Icon Section End --></div>
+            </details>
+            <!-- End Dropdown Section --><h3 id="timeline-heading"><i class="fas fa-calendar-alt"></i> Timeline of Key Events</h3>
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="event-year">1947</div>
+                    <div class="event-description">Geoffrey Hinton is born in the UK.</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-year">1986</div>
+                    <div class="event-description">Co-authors the seminal paper popularizing the backpropagation algorithm.</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-year">1987-2000s</div>
+                    <div class="event-description">Becomes a professor at the University of Toronto, pioneering deep learning models despite funding challenges.</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-year">2012</div>
+                    <div class="event-description">AlexNet wins the ImageNet competition, marking the "Big Bang" of modern AI.</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-year">2013</div>
+                    <div class="event-description">Hinton's company DNNresearch is acquired by Google; he becomes VP & Engineering Fellow.</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-year">2018</div>
+                    <div class="event-description">Awarded the Turing Award alongside Yann LeCun and Yoshua Bengio for deep learning contributions.</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-year">May 2023</div>
+                    <div class="event-description">Resigns from Google to speak freely about AI dangers, making global headlines.</div>
+                </div>
+            </div>
+
+            <h3><i class="fas fa-exclamation-triangle"></i> The Paradox: The Godfather's Warning</h3>
+            <p class="story-text">
+                Despite his groundbreaking work, Hinton has expressed deep concerns about AI's future risks, including existential threats, superintelligence surpassing humans, misinformation, and job displacement. His resignation was a dramatic call to action for responsible AI development.
+            </p>
+        </section>
+
+        <!-- Divider Banner --><section class="divider-banner">
+            <!-- Ambient Banner Image --><img src="https://ik.imagekit.io/bebell/Project%20Freedom/AIM%E2%84%A2%20AI%20Mastery%20Program/TOP%20BANNERS%20(1).png" alt="Abstract AI banner" class="divider-image"
+                onerror="this.style.display='none'">
+        </section>
+
+        <!-- Section 2: OpenAI --><section class="story-section">
+            <h2>The Rise of OpenAI</h2>
+            
+            <h3><i class="fas fa-atom"></i> Founding Story</h3>
+            <p class="story-text">
+                OpenAI was founded in <strong>December 2015</strong> as a <em>non-profit</em> organization with the mission to <strong>ensure that artificial general intelligence (AGI) benefits all of humanity</strong>. The founding was motivated by concerns about AI safety and the desire to democratize AI development for the benefit of humanity, rather than for private gain. The organization started with an initial funding of <strong>$1 billion</strong>.
+            </p>
+        </section>
+        
+        
+        <section class="story-section">
+            <h2>Meet the Founders</h2>
+            <div class="founders-section">
+                
+                <article class="founder-card">
+                    <!-- Image Placeholder --><img src="https://bucket.mlcdn.com/a/3336/3336910/images/7643ff0b565c1b538830835f165690e32b37ffff.jpeg" alt="Sam Altman" class="founder-photo"
+                        onerror="this.src='https://placehold.co/120x120/444444/ffffff?text=S.A.'">
+                    <h3 class="founder-name">Sam Altman</h3>
+                    <p class="founder-role">Co-chair and CEO</p>
+                    <p class="founder-description">Steered the organization's vision and strategy, leveraging his experience as president of the startup accelerator Y Combinator.</p>
+                </article>
+                
+                <article class="founder-card">
+                    <!-- Image Placeholder --><img src="https://bucket.mlcdn.com/a/3336/3336910/images/ea8310bd3c6c31c9c1e532839ef86c02c8eda241.jpeg" alt="Elon Musk" class="founder-photo"
+                        onerror="this.src='https://placehold.co/120x120/444444/ffffff?text=E.M.'">
+                    <h3 class="founder-name">Elon Musk</h3>
+                    <p class="founder-role">Co-chair</p>
+                    <p class="founder-description">Provided crucial initial funding and strategic direction, drawing from his leadership at Tesla and SpaceX. He left the OpenAI board in 2018.</p>
+                </article>
+                
+                <article class="founder-card">
+                    <!-- Image Placeholder --><img src="https://bucket.mlcdn.com/a/3336/3336910/images/cf5123ce82f2e14d01963c3935192d1f4ef30875.jpeg" alt="Greg Brockman" class="founder-photo"
+                        onerror="this.src='https://placehold.co/120x120/444444/ffffff?text=G.B.'">
+                    <h3 class="founder-name">Greg Brockman</h3>
+                    <p class="founder-role">President and CTO</p>
+                    <p class="founder-description">Managed technical development and infrastructure, using his previous experience as the CTO of Stripe.</p>
+                </article>
+                
+                <article class="founder-card">
+                    <!-- Image Placeholder --><img src="https://bucket.mlcdn.com/a/3336/3336910/images/a1d3a5070247e14a8979d345f5c6dd124f6e563a.png" alt="Ilya Sutskever" class="founder-photo"
+                        onerror="this.src='https://placehold.co/120x120/444444/ffffff?text=I.S.'">
+                    <h3 class="founder-name">Ilya Sutskever</h3>
+                    <p class="founder-role">Chief Scientist</p>
+                    <p class="founder-description">A renowned expert in deep learning, he guided the organization's research initiatives and was instrumental in its early scientific direction.</p>
+                </article>
+                
+                <article class="founder-card">
+                    <!-- Image Placeholder --><img src="https://bucket.mlcdn.com/a/3336/3336910/images/e95260501918bd62708934611c425bebbb1ab867.png" alt="Wojciech Zaremba" class="founder-photo"
+                        onerror="this.src='https://placehold.co/120x120/444444/ffffff?text=W.Z.'">
+                    <h3 class="founder-name">Wojciech Zaremba</h3>
+                    <p class="founder-role">Research Scientist</p>
+                    <p class="founder-description">Contributed his expertise in machine learning and robotics to advance the organization's technical capabilities.</p>
+                </article>
+                
+                <article class="founder-card">
+                    <!-- Image Placeholder --><img src="https://bucket.mlcdn.com/a/3336/3336910/images/405499c95b6b0e655d7fadceb98fb0569810ccd5.png" alt="John Schulman" class="founder-photo"
+                        onerror="this.src='https://placehold.co/120x120/444444/ffffff?text=J.S.'">
+                    <h3 class="founder-name">John Schulman</h3>
+                    <p class="founder-role">Research Scientist</p>
+                    <p class="founder-description">Specialized in reinforcement learning, and his work was fundamental to projects like OpenAI Gym.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <h3><i class="fas fa-users"></i> Other Founding Team Members</h3>
+            <ul class="team-list">
+                <li>Trevor Blackwell</li>
+                <li>Vicki Cheung</li>
+                <li>Andrej Karpathy</li>
+                <li>Durk Kingma</li>
+                <li>Pamela Vagata</li>
+            </ul>
+        </section>
+
+        <section class="story-section">
+            <h3><i class="fas fa-hands-helping"></i> Early Supporters</h3>
+            <ul class="team-list">
+                <li>Reid Hoffman</li>
+                <li>Peter Thiel</li>
+                <li>Amazon Web Services (AWS)</li>
+                <li>Infosys</li>
+            </ul>
+        </section>
+    </main>
+
+
+
+
+
+
+   <!-- Standard AIM Footer -->
+	<footer class="footer">
+        <div class="footer-bg">
+            <div class="footer-container container"> 
+                <!-- Logo/Brand Block -->
+                <div class="footer-brand">
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/423c1fc4e18a130b04800feedaa2eb5fcb41df44.png" alt="Project Freedom Logo" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3 class="footer-title">AIM™</h3>
+                        <span class="footer-subtitle">AI Mastery Program</span>
+                    </div>
+                </div>
+					
+                <!-- Footer Links -->
+                <ul class="footer-links">
+                    <li><a href="#home" class="footer-links">Home</a></li>
+                    <li><a href="#about" class="footer-links">About</a></li>
+                    <li><a href="#services" class="footer-links">Services</a></li>
+                    <li><a href="#work" class="footer-links">Work</a></li>
+                    <li><a href="#contact" class="footer-links">Contact</a></li>
+                </ul>
+
+                <!-- Social Icons -->
+                <div class="footer-socials">
+                    <a href="https://www.youtube.com" target="_blank" class="footer-social" aria-label="Youtube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://www.facebook.com" target="_blank" class="footer-social" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com" target="_blank" class="footer-social" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com" target="_blank" class="footer-social" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            <p class="footer-copy">Copyright &#169; 2024 • All rights reserved.<br>Developed with 🧡 by <a href="https://bebelldigitalsolutions.com">Bebell Digital Solutions</a></p>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!-- JavaScript for Interactions and Animations --><script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+
+
+       // Winter Theme
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    
+    if (month === 12 || month === 1 || month === 2) {
+        const snow = document.createElement('div');
+        snow.className = 'snowflakes-blurry';
+        document.body.appendChild(snow);
+    }
+
+
+			
+ // --- Navigation Dropdown Logic (Desktop/Mobile Submenu) ---
+            const coursesLink = document.getElementById('courses-link');
+            const submenu = document.getElementById('courses-submenu');
+            const navBar = document.getElementById('nav-bar');
+
+            if (coursesLink && submenu && navBar) {
+                // Toggle visibility on click
+                coursesLink.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    const isMobile = window.innerWidth <= 980;
+                    
+                    if (isMobile) {
+                        submenu.classList.toggle('active');
+                    } else {
+                        submenu.classList.toggle('active');
+                    }
+                    
+                    e.stopPropagation(); 
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!navBar.contains(e.target)) {
+                        submenu.classList.remove('active');
+                    }
+                });
+
+                // Prevent clicks inside submenu from closing it
+                submenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            // --- Mobile Menu Toggle Logic (Hamburger Icon) ---
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            const toggleIcon = document.getElementById('toggle-icon');
+
+            if (mobileToggle && navMenu && toggleIcon) {
+                mobileToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('mobile-open');
+                    
+                    if (navMenu.classList.contains('mobile-open')) {
+                        toggleIcon.classList.remove('fa-bars');
+                        toggleIcon.classList.add('fa-xmark');
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        toggleIcon.classList.remove('fa-xmark');
+                        toggleIcon.classList.add('fa-bars');
+                        document.body.style.overflow = 'auto';
+                        if (submenu) submenu.classList.remove('active');
+                    }
+                });
+                
+                // Close mobile menu when clicking links
+                navMenu.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 980) {
+                            if (!link.classList.contains('submenu-link') && link.id !== 'courses-link') {
+                                navMenu.classList.remove('mobile-open');
+                                toggleIcon.classList.remove('fa-xmark');
+                                toggleIcon.classList.add('fa-bars');
+                                document.body.style.overflow = 'auto';
+                            }
+                        }
+                    });
+                });
+                
+                // Close menu when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 980 &&
+                        navMenu.classList.contains('mobile-open') &&
+                        !navMenu.contains(e.target) && 
+                        e.target !== mobileToggle) {
+                        navMenu.classList.remove('mobile-open');
+                        toggleIcon.classList.remove('fa-xmark');
+                        toggleIcon.classList.add('fa-bars');
+                        document.body.style.overflow = 'auto';
+                        if (submenu) submenu.classList.remove('active');
+                    }
+                });
+            }
+
+
+
+
+
+            // --- Intersection Observer for Scroll Animations ---
+            const animatedElements = document.querySelectorAll('.story-section, .founder-card, .timeline-event');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // When the element is in view
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            // Observe each element
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+
+
+
+
+<script>
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    
+    if (month === 12 || month === 1 || month === 2) {
+        const snow = document.createElement('div');
+        snow.className = 'snowflakes-blurry';
+        document.body.appendChild(snow);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+<!-- Widget BACK-TO-TOP -->
+<script>
+// Create Back-to-Top Button Dynamically
+document.addEventListener("DOMContentLoaded", function () {
+    // Create the button container
+    const backToTop = document.createElement("div");
+    backToTop.id = "back-to-top";
+    backToTop.style.position = "fixed";
+    backToTop.style.bottom = "20px";
+    backToTop.style.right = "20px";
+    backToTop.style.display = "none";
+    backToTop.style.cursor = "pointer";
+    backToTop.style.zIndex = "9999";
+
+    // Create the image inside the button
+    const backToTopImg = document.createElement("img");
+    backToTopImg.src = "https://bucket.mlcdn.com/a/3336/3336910/images/972c5065cffe83955d5322557dcdce28eca170e5.png";
+    backToTopImg.alt = "Volver arriba";
+    backToTopImg.style.width = "40px";
+    backToTopImg.style.height = "40px";
+
+    // Append image to the button
+    backToTop.appendChild(backToTopImg);
+
+    // Append button to the body
+    document.body.appendChild(backToTop);
+
+    // Scroll Event Listener
+    window.addEventListener("scroll", function () {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            backToTop.style.display = "block";
+        } else {
+            backToTop.style.display = "none";
+        }
+    });
+
+    // Click Event for Scrolling to Top
+    backToTop.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+});
+</script>
+<!-- End Widget BACK-TO-TOP -->
+
+
+
+
+
+
+
+
+	
+</body>
+</html>

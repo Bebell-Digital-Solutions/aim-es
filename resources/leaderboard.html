@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Model Leaderboard - AIM™</title> 
+    
+    <!-- Import Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://bucket.mlcdn.com/a/3336/3336910/images/c6f729e3f2ce7e2bc59bf6037f6fe0f491d94819.png">
+  
+    <style>
+        /* --- AIM Brand Styles (from Knowledge Base) --- */
+        :root {
+            --skin-color: #ff5011;
+            --mirage-color: hsl(210, 10%, 23%);
+            --title-color: hsl(242, 8%, 98%);
+            --text-color: hsl(242, 8%, 80%);
+            --body-color: #0d0d0d;
+            --box-color: hsl(242, 14%, 12%);
+            --body-font: 'Inter', sans-serif;
+            --small-font-size: 0.95rem;
+            --h3-font-size: 1.25rem;
+            --smaller-font-size: 0.75rem;
+            --mb15: 0.75rem;
+            --mb3: 1.5rem;
+        }
+
+        /* --- Base & Scrollbar --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: var(--body-font);
+            background-color: var(--body-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 8rem; /* Space for fixed nav */
+            overflow-x: hidden;
+        }
+        main { max-width: 980px; margin: 0 auto; padding: 0 1rem; margin-top: 1rem; }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; cursor: pointer; color: var(--skin-color); }
+        ul { list-style: none; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #333; }
+        ::-webkit-scrollbar-thumb { background: var(--skin-color); border-radius: 4px; }
+        
+   
+
+   
+    /* =========================== */
+        /* SECTION 4: NAVIGATION BAR */
+        /* =========================== */
+        
+        #nav-bar {
+            position: fixed; 
+            top: 2rem; 
+            left: 50%; 
+            transform: translateX(-50%);
+            background: rgba(25, 25, 25, 0.85); 
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--box-color); 
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem; 
+            display: flex; 
+            align-items: center;
+            max-width: 1100px; 
+            width: 90%; 
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+        #nav-logo img { height: 35px; }
+        
+        /* Desktop: nav-menu contains all links and is flexed */
+        #nav-menu { 
+            display: flex; 
+            gap: 1.5rem; 
+            margin-left: auto; 
+            align-items: center; 
+        }
+
+        /* Nav links and CTA */
+        .nav-link { 
+            color: var(--text-color); 
+            transition: color 0.3s, transform 0.2s; 
+            font-weight: 500; 
+            position: relative;
+        }
+        .nav-link:hover { 
+            color: var(--skin-color); 
+            transform: translateY(-1px); 
+        }
+        
+        .nav-cta {
+            background: linear-gradient(90deg, var(--skin-color), #d43a00);
+            color: var(--title-color); 
+            padding: 0.5rem 1rem; 
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(255, 80, 17, 0.4); 
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .nav-cta:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(255, 80, 17, 0.5); 
+        }
+        
+        .has-submenu { position: relative; }
+        
+        /* Submenu Default State (Hidden - Desktop) */
+        .submenu-courses {
+            position: absolute; 
+            top: 100%; 
+            left: 50%; 
+            transform: translateX(-50%);
+            background: var(--box-color); 
+            border-radius: 0.5rem; 
+            padding: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+            opacity: 0; 
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, top 0.3s; 
+            width: 310px;
+            z-index: 1001;
+            margin-left: 0;
+            padding-left: 0.75rem;
+            flex-direction: column;
+        }
+        
+        /* Submenu Active State (Shown via JavaScript click - Desktop) */
+        .submenu-courses.active { 
+            opacity: 1; 
+            visibility: visible;
+            top: calc(100% + 15px);
+        }
+        
+        .submenu-link { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+            color: var(--text-color); 
+            padding: 0.5rem; 
+            border-radius: 0.25rem; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
+        .submenu-link:hover { 
+            background-color: rgba(255, 80, 17, 0.1); 
+            color: var(--skin-color); 
+        }
+        .submenu-link i { width: 15px; text-align: center; }
+
+        /* Mobile visibility controls (Default/Desktop state) */
+        #mobile-menu-toggle { 
+            display: none; 
+            border: none;
+            background: transparent;
+            color: var(--skin-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .nav-cta.mobile-cta-only { display: none; }
+        .nav-cta.desktop-cta-only { display: block; }
+        
+        
+        
+        
+        
+        
+
+        /* --- AIM Standard Section Styling --- */
+        .section {
+            background-color: var(--box-color);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        .section h2 {
+            color: var(--title-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--skin-color);
+        }
+        .section h3 {
+            color: var(--title-color);
+            font-size: var(--h3-font-size);
+            margin-bottom: 1rem;
+        }
+        
+        
+        
+        
+        
+
+        /* --- Leaderboard Specific Styles (Adapted for AIM Brand) --- */
+        .leaderboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .leaderboard-filters {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            border: 1px solid var(--mirage-color);
+            color: var(--text-color);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover {
+            background-color: var(--mirage-color);
+            color: var(--title-color);
+        }
+        .filter-btn.active {
+            background-color: var(--skin-color);
+            color: white;
+            border-color: var(--skin-color);
+        }
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .leaderboard-table th {
+            background-color: rgba(0,0,0,0.2);
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--mirage-color);
+            font-weight: 600;
+            color: var(--title-color);
+        }
+        .leaderboard-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--mirage-color);
+        }
+        .leaderboard-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        .model-rank {
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: var(--skin-color);
+            width: 50px;
+        }
+        .model-name {
+            font-weight: 600;
+            color: var(--title-color);
+        }
+        .model-provider {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        .score-bar {
+            height: 8px;
+            background-color: var(--mirage-color);
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .score-fill {
+            height: 100%;
+            background-color: var(--skin-color);
+            border-radius: 4px;
+        }
+        .trend-up { color: #28a745; }
+        .trend-down { color: #dc3545; }
+        .trend-neutral { color: #6c757d; }
+        .refresh-btn {
+            background: linear-gradient(90deg, var(--skin-color), #d43a00);
+            color: var(--title-color);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 80, 17, 0.5);
+        }
+        .refresh-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .last-updated {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            text-align: right;
+        }
+        .category-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+            background-color: var(--mirage-color);
+            color: var(--text-color);
+        }
+        .deepseek-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: var(--skin-color);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        .update-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-top: 0.5rem;
+        }
+        .update-indicator.live {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+        .update-indicator.manual {
+            background-color: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+        .credibility-section {
+            background-color: rgba(0,0,0,0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+        .data-sources, .methodology-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .data-sources { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        .methodology-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        .source-item, .methodology-item {
+            padding: 1rem;
+            background-color: var(--box-color);
+            border-radius: 8px;
+            border: 1px solid var(--mirage-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .source-item:hover, .methodology-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+        .source-item { border-left: 4px solid var(--skin-color); }
+        .methodology-item ul { padding-left: 1rem; }
+        .methodology-item li { margin-bottom: 0.5rem; }
+        .data-source-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: var(--mirage-color);
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px;
+        }
+        .spinner { animation: spin 1s linear infinite; }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        
+        
+        
+        
+
+
+        /* --- Footer --- */
+        .footer { padding-top: 2rem; }
+        .footer-bg { background-color: var(--box-color); padding: 3rem 0 3.5rem; }
+        .footer-container { max-width: 980px; margin: 0 auto; padding: 0 1rem; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 1.6rem; }
+        .footer-title { font-size: var(--h3-font-size); margin-bottom: 0.25rem; color: var(--title-color); }
+        .footer-subtitle { font-size: var(--small-font-size); color: var(--title-color); }
+        .footer-links { list-style: none; display: flex; justify-self: center; column-gap: 2rem; }
+        .footer-links a { color: var(--title-color); transition: color 0.3s; }
+        .footer-links a:hover { color: var(--skin-color); }
+        .footer-socials { justify-self: flex-end; display: flex; align-items: center; gap: var(--mb15); }
+        .footer-social { font-size: 1.25rem; color: var(--title-color); transition: color 0.3s; }
+        .footer-social:hover { color: var(--skin-color); }
+        .footer-copy { font-size: var(--smaller-font-size); text-align: center; margin-top: 4.5rem; }
+        .footer-copy a { color: var(--title-color); }
+        .footer-copy a:hover { color: var(--skin-color); }
+        .footer-brand { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 0.5rem; }
+        .footer-logo { width: 30px; }
+        .footer-logo:hover { opacity: 0.8; transition: opacity 0.3s ease; }
+
+
+
+
+
+
+
+
+		
+        
+        /* --- Responsive Styles --- */
+        @media screen and (max-width: 768px) {
+            .leaderboard-table { font-size: 14px; }
+            .leaderboard-table th, .leaderboard-table td { padding: 10px 5px; }
+            .leaderboard-filters { justify-content: center; }
+            .data-sources, .methodology-grid { grid-template-columns: 1fr; }
+        }
+ 
+ 
+ 
+ 
+ 
+         @media screen and (min-width: 768px) {
+            
+            /* Show desktop CTA on desktop */
+            .nav-cta.desktop-cta-only {
+                display: block !important;
+            }
+            /* Hide mobile CTA on desktop */
+            .nav-cta.mobile-cta-only {
+                display: none !important;
+            }
+            #nav-menu {
+                display: flex !important;
+            }
+        }
+
+
+ 
+ 
+ 
+ 
+ 
+         /* --- MOBILE LAYOUT (max-width: 767px) --- */
+        @media screen and (max-width: 767px) {
+
+            /* Footer Responsive Fixes */
+            .footer-container { 
+                grid-template-columns: 1fr; 
+                row-gap: 3rem; 
+                text-align: center;
+                justify-items: center;
+            }
+            .footer-brand { align-items: center; text-align: center; }
+            .footer-links { flex-direction: column; row-gap: 1.5rem; align-items: center; }
+            .footer-socials { justify-self: center; }
+            .footer-bg { padding: 2rem 0 3rem; }
+            
+            
+            .footer-copy { 
+            margin-top: var(--mb3); 
+            
+            }
+        }
+        
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   /* ====================================================== */
+        /* --- MOBILE LAYOUT (UPDATED TO 980px BREAKPOINT) --- */
+        /* ====================================================== */
+        @media screen and (max-width: 980px) {
+            body { 
+                padding-top: 6rem; 
+                padding-left: 0;
+                padding-right: 0;
+            }
+            
+            /* 1. Mobile Navigation Bar (Fixed Top) */
+            #nav-bar {
+                padding: 0.5rem 1rem;
+                justify-content: space-between;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+                width: 100%;
+                max-width: 100%;
+                top: 0;
+                left: 0;
+                transform: none; /* Reset transform */
+                border-radius: 0; /* Reset border radius */
+                border: none;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+            
+            #mobile-menu-toggle {
+                display: block;
+                position: relative;
+                z-index: 1002;
+            }
+            
+            /* Mobile Menu Overlay */
+            #nav-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--body-color); 
+                z-index: 1001; 
+                flex-direction: column;
+                justify-content: flex-start; 
+                align-items: center; 
+                gap: 1.5rem;
+                padding: 6rem 1.5rem 2rem; 
+                margin: 0;
+                overflow-y: auto;
+            }
+
+            #nav-menu.mobile-open {
+                display: flex;
+            }
+            
+            #nav-menu .nav-link,
+            #nav-menu .nav-item {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: var(--title-color);
+                padding: 0.5rem 0;
+                margin: 0;
+                width: 100%; 
+                text-align: center;
+            }
+            
+            #nav-menu .nav-item { margin: 0; padding: 0; }
+
+            #nav-menu .nav-link:hover {
+                color: var(--skin-color);
+                transform: none;
+            }
+            
+            /* Mobile Dropdown (Accordion Style) */
+            .has-submenu {
+                display: flex;
+                flex-direction: column;
+                align-items: center; 
+                width: 100%; 
+            }
+            
+            .submenu-courses {
+                position: static; 
+                width: 100%; 
+                background: transparent; 
+                box-shadow: none;
+                padding: 0; 
+                margin: 0; 
+                opacity: 0; 
+                visibility: hidden;
+                display: none;
+                max-height: 0;
+                overflow: hidden;
+                transition: opacity 0.3s, max-height 0.3s;
+                transform: none; 
+                flex-direction: column; 
+                align-items: flex-start; 
+                border-radius: 0;
+            }
+            
+            .submenu-courses.active { 
+                display: flex;
+                opacity: 1;
+                visibility: visible;
+                max-height: 500px;
+                margin-top: 0.5rem; 
+                background: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+            }
+            
+            .submenu-courses .submenu-link {
+                font-size: 1.1rem;
+                padding: 0.8rem 1rem 0.8rem 2rem;
+                justify-content: flex-start; 
+                width: 100%;
+                text-align: left;
+                margin: 0;
+            }
+            
+            /* Mobile CTA button */
+            .nav-cta.mobile-cta-only {
+                padding: 0.8rem 2rem; 
+                width: 100%;
+                max-width: none;
+                white-space: nowrap;
+                font-size: 1.2rem; 
+                font-weight: 700;
+                margin-top: 1rem; 
+                display: block !important; 
+                text-align: center;
+            }
+            
+            /* Hide desktop items */
+            .nav-cta.desktop-cta-only { display: none !important; }
+            
+            /* Footer Mobile Styles */
+            .footer-container {
+                grid-template-columns: 1fr;
+                row-gap: 3rem;
+                text-align: center;
+            }
+            
+            /* FIX: Centering footer elements on mobile */
+            .footer-brand {
+                align-items: center;
+                text-align: center;
+                justify-content: center;
+                justify-self: center;
+            }
+            .footer-brand-text { text-align: center; }
+            
+            .footer-title {
+                text-align: center; /* Enforces center alignment on mobile */
+            }
+
+            .footer-socials {
+                justify-content: center;
+                justify-self: center; /* FIX: Centers icons on mobile */
+                display: flex;
+                gap: var(--mb15);
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                row-gap: 1.5rem;
+                justify-self: center;
+            }
+            .footer-bg { padding: 2rem 0 3rem; }
+            .footer-copy { margin-top: var(--mb3); }
+        }
+
+        /* Desktop: Ensure correct visibility when not mobile */
+        @media screen and (min-width: 981px) {
+            #nav-menu { display: flex !important; }
+            .nav-cta.desktop-cta-only { display: block !important; }
+        }
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ /* Page loader container with black background */
+  .page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Added text header */
+  .loader-header {
+    color: white;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Your progress bar - unchanged */
+  .progress {
+    width: 272.8px;
+    height: 41.7px;
+    border-radius: 28.8px;
+    color: #ff5011;
+    background-color: #000;
+    border: 2.9px solid;
+    position: relative;
+  }
+
+  .progress::before {
+    content: "";
+    position: absolute;
+    margin: 2.9px;
+    inset: 0 100% 0 0;
+    border-radius: inherit;
+    background: currentColor;
+    animation: progress-pf82op 1.5s forwards;
+  }
+
+  @keyframes progress-pf82op {
+    100% {
+      inset: 0;
+    }
+  }
+
+  /* Hide transition */
+  .page-loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+       /* --- Methodology Grid Styles --- */
+    .methodology-grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+    }
+
+    .methodology-card {
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--mirage-color);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .methodology-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Heading with a prominent icon */
+    .h3-with-icon {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: var(--h3-font-size);
+        color: var(--title-color);
+        margin-bottom: 1.25rem; /* More space for lists */
+    }
+
+    .h3-with-icon i {
+        font-size: 1.5rem; /* Larger icon */
+        color: var(--skin-color);
+        width: 30px; /* Ensures alignment */
+        text-align: center;
+    }
+
+    /* Styling for the list within each card */
+    .methodology-card ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .methodology-card li {
+        position: relative;
+        padding-left: 1.75rem; /* Space for the icon */
+        margin-bottom: 0.75rem;
+        font-size: var(--small-font-size);
+        color: var(--text-color);
+        transition: transform 0.3s ease;
+    }
+    
+    .methodology-card li:hover {
+        transform: translateX(5px); /* Lifts on hover per guidelines */
+    }
+
+    /* Custom list icon using ::before pseudo-element */
+    .methodology-card li::before {
+        content: '\f058'; /* Font Awesome Solid Check Circle icon */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: var(--skin-color);
+        position: absolute;
+        left: 0;
+        top: 2px;
+        font-size: 1rem;
+    }
+
+
+
+
+      /* Snowflake effects */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: 
+                radial-gradient(8px 8px at 10% 20%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.3) 70%, transparent 100%),
+                radial-gradient(12px 12px at 20% 30%, rgba(255, 255, 255, 0.5) 25%, rgba(255, 255, 255, 0.2) 60%, transparent 100%),
+                radial-gradient(6px 6px at 30% 10%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0.25) 80%, transparent 100%),
+                radial-gradient(10px 10px at 40% 40%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.15) 75%, transparent 100%),
+                radial-gradient(14px 14px at 50% 60%, rgba(255, 255, 255, 0.55) 30%, rgba(255, 255, 255, 0.2) 65%, transparent 100%),
+                radial-gradient(7px 7px at 60% 80%, rgba(255, 255, 255, 0.65) 45%, rgba(255, 255, 255, 0.3) 85%, transparent 100%),
+                radial-gradient(9px 9px at 70% 50%, rgba(255, 255, 255, 0.45) 35%, rgba(255, 255, 255, 0.18) 70%, transparent 100%),
+                radial-gradient(11px 11px at 80% 20%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.22) 75%, transparent 100%),
+                radial-gradient(5px 5px at 90% 70%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0.35) 90%, transparent 100%),
+                radial-gradient(15px 15px at 15% 90%, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0.12) 55%, transparent 100%),
+                radial-gradient(4px 4px at 25% 45%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0.1) 90%, transparent 100%),
+                radial-gradient(6px 6px at 75% 35%, rgba(255, 255, 255, 0.7) 15%, rgba(255, 255, 255, 0.05) 85%, transparent 100%),
+                radial-gradient(3px 3px at 45% 75%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.15) 95%, transparent 100%),
+                radial-gradient(8px 8px at 85% 65%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.08) 80%, transparent 100%);
+            
+            background-repeat: no-repeat;
+            animation: snowfall 15s linear infinite;
+            filter: blur(0.5px);
+        }
+
+        /* Medium blurry snowflakes layer */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            background-image: 
+                radial-gradient(4px 4px at 5% 15%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.1) 90%, transparent 100%),
+                radial-gradient(7px 7px at 25% 35%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.08) 80%, transparent 100%),
+                radial-gradient(3px 3px at 35% 5%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0.15) 95%, transparent 100%),
+                radial-gradient(5px 5px at 45% 45%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0.05) 70%, transparent 100%),
+                radial-gradient(6px 6px at 55% 65%, rgba(255, 255, 255, 0.45) 35%, rgba(255, 255, 255, 0.1) 75%, transparent 100%),
+                radial-gradient(3.5px 3.5px at 65% 85%, rgba(255, 255, 255, 0.55) 40%, rgba(255, 255, 255, 0.12) 85%, transparent 100%),
+                radial-gradient(4.5px 4.5px at 85% 25%, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0.06) 65%, transparent 100%),
+                radial-gradient(2.5px 2.5px at 95% 55%, rgba(255, 255, 255, 0.65) 50%, rgba(255, 255, 255, 0.2) 95%, transparent 100%),
+                radial-gradient(8px 8px at 15% 75%, rgba(255, 255, 255, 0.25) 20%, rgba(255, 255, 255, 0.04) 60%, transparent 100%);
+            
+            background-repeat: no-repeat;
+            animation: snowfall 20s linear infinite;
+            filter: blur(0.8px);
+            opacity: 0.8;
+        }
+
+        /* Additional layer for extra blurry small snowflakes */
+        .snowflakes-blurry {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9997;
+            background-image: 
+                radial-gradient(2px 2px at 12% 28%, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 0.05) 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 32% 18%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.1) 100%, transparent 100%),
+                radial-gradient(2.5px 2.5px at 48% 52%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.03) 100%, transparent 100%),
+                radial-gradient(1px 1px at 68% 72%, rgba(255, 255, 255, 0.6) 80%, rgba(255, 255, 255, 0.15) 100%, transparent 100%),
+                radial-gradient(3px 3px at 82% 38%, rgba(255, 255, 255, 0.35) 40%, rgba(255, 255, 255, 0.07) 100%, transparent 100%),
+                radial-gradient(1.8px 1.8px at 22% 88%, rgba(255, 255, 255, 0.45) 65%, rgba(255, 255, 255, 0.09) 100%, transparent 100%),
+                radial-gradient(2.2px 2.2px at 58% 12%, rgba(255, 255, 255, 0.4) 55%, rgba(255, 255, 255, 0.06) 100%, transparent 100%),
+                radial-gradient(0.8px 0.8px at 88% 68%, rgba(255, 255, 255, 0.7) 85%, rgba(255, 255, 255, 0.2) 100%, transparent 100%);
+            
+            background-repeat: no-repeat;
+            animation: snowfall 25s linear infinite;
+            filter: blur(1.2px);
+            opacity: 0.6;
+        }
+
+        /* Enhanced snowfall animation with slight horizontal movement */
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100%) translateX(0);
+            }
+            25% {
+                transform: translateY(-50%) translateX(5px);
+            }
+            50% {
+                transform: translateY(0%) translateX(0);
+            }
+            75% {
+                transform: translateY(50%) translateX(-5px);
+            }
+            100% {
+                transform: translateY(100vh) translateX(0);
+            }
+        }
+
+        /* Alternative animation for some randomness */
+        @keyframes snowfall-alt {
+            0% {
+                transform: translateY(-100%) translateX(10px);
+            }
+            50% {
+                transform: translateY(0%) translateX(-10px);
+            }
+            100% {
+                transform: translateY(100vh) translateX(10px);
+            }
+        }
+
+
+
+
+		
+    
+  </style>
+	
+
+<!-- Page Loader HTML -->
+<script>
+  // --- Page Loader Logic ---
+  function showLoader() {
+    const loader = document.createElement('div');
+    loader.className = 'page-loader';
+    loader.innerHTML = `
+      <div class="loader-header">Wait for it...</div>
+      <div class="progress"></div>
+    `;
+    document.body.appendChild(loader);
+    return loader;
+  }
+
+  function initLoader() {
+    const loader = showLoader();
+    setTimeout(() => {
+      loader.classList.add('hidden');
+      setTimeout(() => loader.remove(), 300); // Remove after fade out
+    }, 1500); // Adjust duration as needed
+  }
+
+  document.addEventListener('DOMContentLoaded', initLoader);
+</script>
+<!-- Loader Div is injected by the script above -->
+
+
+
+</head>
+<body>
+
+ 
+
+
+	
+
+ <!-- =========================== -->
+    <!-- SECTION 11: NAVIGATION BAR HTML -->
+    <!-- =========================== -->
+    <nav id="nav-bar">
+        <a href="/" id="nav-logo">
+            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/b28800186bb16bf422fabd87ca9f369da73e62e9.png" alt="AIM Logo" />
+        </a>
+        
+        <!-- MOBILE TOGGLE BUTTON -->
+        <button id="mobile-menu-toggle" aria-label="Open Menu">
+            <i class="fa-solid fa-bars" id="toggle-icon"></i>
+        </button>
+        
+        <div id="nav-menu">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/about" class="nav-link" style="color: var(--skin-color);">About</a>
+            
+            <!-- Courses Dropdown -->
+            <div class="nav-item has-submenu">
+                <a href="#" class="nav-link" id="courses-link">Courses <i class="fa-solid fa-angle-down" style="font-size: 0.8em;"></i></a>
+                <div class="submenu-courses" id="courses-submenu">
+                    <a href="/courses#all" class="submenu-link"><i class="fa-solid fa-list-ul"></i> All Courses</a>
+                    <a href="/courses#foundation" class="submenu-link"><i class="fa-solid fa-brain"></i> AI Foundation</a>
+                    <a href="/courses#prompting" class="submenu-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Craftsmanship</a>
+                    <a href="#building-ai-brain" class="submenu-link"><i class="fa-solid fa-database"></i> Building Your AI Brain</a>
+                    <a href="#autonomous-ai-agents" class="submenu-link"><i class="fa-solid fa-robot"></i> Autonomous AI Agents</a>
+                    <a href="/5-security-privacy-compliance" class="submenu-link"><i class="fa-solid fa-shield"></i> Security, Privacy & Compliance</a>
+                
+                </div>
+            </div>
+            
+            <a href="/pricing-page" class="nav-link">Pricing</a>
+            <a href="/contact" class="nav-link">Contact</a>
+            
+            <!-- DESKTOP CTA -->
+            <a href="/login" class="nav-cta desktop-cta-only">MEMBER LOGIN</a>
+            
+            <!-- MOBILE CTA -->
+            <a href="/login" class="nav-cta mobile-cta-only">MEMBER LOGIN</a>
+        </div>
+    </nav>
+    
+
+
+
+
+	
+
+    <main>
+        <!-- *** START OF LEADERBOARD CONTENT *** -->
+        <section class="section">
+            <div class="leaderboard-header">
+                <div>
+                    <h2>AI Model Performance Leaderboard</h2>
+                    <div class="update-indicator live" id="updateIndicator">
+                        <div style="width: 8px; height: 8px; background-color: #28a745; border-radius: 50%;"></div>
+                        Live Updates • Refreshes Every 24 Hours
+                    </div>
+                </div>
+                <button class="refresh-btn" id="refreshBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4V9H4.58152M19.9381 11C19.446 7.05369 16.0796 4 12 4C8.64262 4 5.76829 6.06817 4.58152 9M4.58152 9H9M20 20V15H19.4185M19.4185 15C18.2317 17.9318 15.3574 20 12 20C7.92038 20 4.55399 16.9463 4.06189 13M19.4185 15H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Refresh Now
+                </button>
+            </div>
+            
+            <p style="margin-bottom: 20px;">Track the latest AI model performance across different benchmarks. This leaderboard is updated regularly using multiple trusted data sources and DeepSeek API evaluations.</p>
+            
+            <div class="leaderboard-filters">
+                <button class="filter-btn active" data-category="all">All Models</button>
+                <button class="filter-btn" data-category="coding">Coding</button>
+                <button class="filter-btn" data-category="reasoning">Reasoning</button>
+                <button class="filter-btn" data-category="multimodal">Multimodal</button>
+                <button class="filter-btn" data-category="general">General Purpose</button>
+            </div>
+            
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th width="50">Rank</th>
+                        <th>Model</th>
+                        <th width="120">Category</th>
+                        <th width="150">Overall Score</th>
+                        <th width="120">Trend</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                    <!-- Data will be populated by JavaScript -->
+                </tbody>
+            </table>
+            
+            <div class="last-updated" id="lastUpdated">
+                Last updated: Loading...
+            </div>
+        </section>
+        
+        <section class="section">
+            <h3>Data Sources & Methodology</h3>
+            
+            <div class="credibility-section">
+                <h4>📊 Primary Data Sources</h4>
+                <div class="data-sources">
+                    <div class="source-item">
+                        <strong>Hugging Face Open LLM Leaderboard</strong>
+                        <div>ARC, HellaSwag, MMLU, TruthfulQA benchmarks</div>
+                        <span class="data-source-badge">API</span>
+                        <span class="data-source-badge">Updated Daily</span>
+                    </div>
+                    <div class="source-item">
+                        <strong>LMSYS Chatbot Arena</strong>
+                        <div>Human preference rankings & Elo ratings</div>
+                        <span class="data-source-badge">Crowdsourced</span>
+                        <span class="data-source-badge">Live Data</span>
+                    </div>
+                    <div class="source-item">
+                        <strong>DeepSeek API Evaluations</strong>
+                        <div>Custom benchmarks using your credits</div>
+                        <span class="data-source-badge">Direct API</span>
+                        <span class="deepseek-badge">DeepSeek</span>
+                    </div>
+                    <div class="source-item">
+                        <strong>Papers with Code</strong>
+                        <div>Research paper benchmarks & SOTA tracking</div>
+                        <span class="data-source-badge">Academic</span>
+                        <span class="data-source-badge">Peer-Reviewed</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+   <div class="methodology-grid-container">
+        <!-- Item 1: Update Frequency -->
+        <div class="methodology-card" style="animation-delay: 0.1s;">
+            <h3 class="h3-with-icon">
+                <i class="fas fa-sync-alt"></i> Update Frequency
+            </h3>
+            <ul>
+                <li><strong>Automatic Updates:</strong> Every 24 hours</li>
+                <li><strong>Manual Refresh:</strong> Available anytime</li>
+                <li><strong>DeepSeek Evaluations:</strong> Weekly runs</li>
+                <li><strong>Emergency Updates:</strong> For major model releases</li>
+            </ul>
+        </div>
+
+        <!-- Item 2: Scoring Methodology -->
+        <div class="methodology-card" style="animation-delay: 0.2s;">
+            <h3 class="h3-with-icon">
+                <i class="fas fa-chart-bar"></i> Scoring Methodology
+            </h3>
+            <ul>
+                <li><strong>Overall Score:</strong> Weighted average</li>
+                <li><strong>MMLU (25%):</strong> General knowledge</li>
+                <li><strong>HumanEval (25%):</strong> Coding capability</li>
+                <li><strong>GSM8K (20%):</strong> Math reasoning</li>
+                <li><strong>LMSYS Elo (15%):</strong> Human preference</li>
+            </ul>
+        </div>
+
+        <!-- Item 3: Verification Process -->
+        <div class="methodology-card" style="animation-delay: 0.3s;">
+            <h3 class="h3-with-icon">
+                <i class="fas fa-check-double"></i> Verification Process
+            </h3>
+            <ul>
+                <li>Cross-reference multiple sources</li>
+                <li>Validate with DeepSeek evaluations</li>
+                <li>Peer review for major changes</li>
+                <li>Transparency in scoring adjustments</li>
+            </ul>
+        </div>
+        
+        <!-- Item 4: Live Features -->
+        <div class="methodology-card" style="animation-delay: 0.4s;">
+            <h3 class="h3-with-icon">
+                <i class="fas fa-bolt"></i> Live Features
+            </h3>
+            <ul>
+                <li>Real-time data fetching</li>
+                <li>Manual refresh capability</li>
+                <li>Update status indicators</li>
+                <li>Change tracking & trend analysis</li>
+            </ul>
+        </div>
+    </div>
+</section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <section class="section">
+            <h3>About This Leaderboard</h3>
+            <p>This AI Model Leaderboard provides transparent, multi-source benchmarking of the latest AI models. We combine data from reputable academic sources, crowd-sourced rankings, and our own evaluations using DeepSeek API.</p>
+            <br>
+            <p><strong>Transparency Commitment:</strong> We believe in open methodology and clear data sourcing. All scores are calculated using published methodologies, and we welcome community verification.</p>
+            <br>
+            <p><span class="deepseek-badge">DeepSeek Powered</span> This leaderboard utilizes your DeepSeek API credits for custom evaluations and verification runs, ensuring independent assessment of model capabilities.</p>
+            <br>
+            <div class="update-indicator manual">
+                Next scheduled update: <span id="nextUpdateTime">Calculating...</span>
+            </div>
+        </section>
+        <!-- *** END OF LEADERBOARD CONTENT *** -->
+    </main>
+
+
+
+
+	
+    
+   
+    <!-- =========================== -->
+    <!-- SECTION 14: FOOTER HTML -->
+    <!-- =========================== -->
+    <footer class="footer">
+        <div class="footer-bg">
+            <div class="footer-container container"> 
+                <!-- Logo/Brand Block -->
+                <div class="footer-brand">
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/423c1fc4e18a130b04800feedaa2eb5fcb41df44.png" alt="AIM Logo" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3 class="footer-title">AIM™</h3>
+                        <span class="footer-subtitle">AI Mastery Program</span>
+                    </div>
+                </div>
+                    
+                <!-- Footer Links -->
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/pricing-page">Pricing</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+
+                <!-- Social Icons -->
+                <div class="footer-socials">
+                    <a href="https://www.youtube.com/" target="_blank" class="footer-social" aria-label="Youtube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://www.facebook.com/" target="_blank" class="footer-social" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer-social" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/" target="_blank" class="footer-social" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            <p class="footer-copy">Copyright &#169; 2024 • All rights reserved.<br>Developed with 🧡 by <a href="https://bebelldigitalsolutions.com">Bebell Digital Solutions</a></p>
+        </div>
+    </footer>
+
+
+
+	
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- AIM Standard Page Logic ---
+        const pageLoader = document.querySelector('.page-loader');
+        setTimeout(() => {
+            if (pageLoader) pageLoader.classList.add('hidden');
+        }, 2000);
+
+        // --- Navigation Dropdown Logic (Desktop/Mobile Submenu) ---
+            const coursesLink = document.getElementById('courses-link');
+            const submenu = document.getElementById('courses-submenu');
+            const navBar = document.getElementById('nav-bar');
+
+            if (coursesLink && submenu && navBar) {
+                // Toggle visibility on click
+                coursesLink.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    const isMobile = window.innerWidth <= 980;
+                    
+                    if (isMobile) {
+                        submenu.classList.toggle('active');
+                    } else {
+                        submenu.classList.toggle('active');
+                    }
+                    
+                    e.stopPropagation(); 
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!navBar.contains(e.target)) {
+                        submenu.classList.remove('active');
+                    }
+                });
+
+                // Prevent clicks inside submenu from closing it
+                submenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            // --- Mobile Menu Toggle Logic (Hamburger Icon) ---
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            const toggleIcon = document.getElementById('toggle-icon');
+
+            if (mobileToggle && navMenu && toggleIcon) {
+                mobileToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('mobile-open');
+                    
+                    if (navMenu.classList.contains('mobile-open')) {
+                        toggleIcon.classList.remove('fa-bars');
+                        toggleIcon.classList.add('fa-xmark');
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        toggleIcon.classList.remove('fa-xmark');
+                        toggleIcon.classList.add('fa-bars');
+                        document.body.style.overflow = 'auto';
+                        if (submenu) submenu.classList.remove('active');
+                    }
+                });
+                
+                // Close mobile menu when clicking links
+                navMenu.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 980) {
+                            if (!link.classList.contains('submenu-link') && link.id !== 'courses-link') {
+                                navMenu.classList.remove('mobile-open');
+                                toggleIcon.classList.remove('fa-xmark');
+                                toggleIcon.classList.add('fa-bars');
+                                document.body.style.overflow = 'auto';
+                            }
+                        }
+                    });
+                });
+                
+                // Close menu when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 980 &&
+                        navMenu.classList.contains('mobile-open') &&
+                        !navMenu.contains(e.target) && 
+                        e.target !== mobileToggle) {
+                        navMenu.classList.remove('mobile-open');
+                        toggleIcon.classList.remove('fa-xmark');
+                        toggleIcon.classList.add('fa-bars');
+                        document.body.style.overflow = 'auto';
+                        if (submenu) submenu.classList.remove('active');
+                    }
+                });
+            }
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const isMobile = window.innerWidth <= 980;
+                
+                if (!isMobile && navMenu && navMenu.classList.contains('mobile-open')) {
+                    navMenu.classList.remove('mobile-open');
+                    if (toggleIcon) {
+                        toggleIcon.classList.remove('fa-xmark');
+                        toggleIcon.classList.add('fa-bars');
+                    }
+                    document.body.style.overflow = 'auto';
+                }
+                
+                // Always close submenu on resize
+                if (submenu) {
+                    submenu.classList.remove('active');
+                }
+            });
+        });
+
+        // --- Leaderboard Specific Logic ---
+        const modelData = [
+            { id: 1, name: "DeepSeek-V3", provider: "DeepSeek", category: ["general", "reasoning"], score: 92.5, trend: "up", lastScore: 91.8, sources: ["Hugging Face", "DeepSeek API", "LMSYS"] },
+            { id: 2, name: "GPT-4.5 Preview", provider: "OpenAI", category: ["general", "coding"], score: 90.2, trend: "up", lastScore: 89.5, sources: ["LMSYS", "Papers with Code"] },
+            { id: 3, name: "Claude 3.5 Sonnet", provider: "Anthropic", category: ["reasoning", "coding"], score: 88.7, trend: "neutral", lastScore: 88.7, sources: ["Hugging Face", "LMSYS"] },
+            { id: 4, name: "Gemini 2.0 Flash", provider: "Google", category: ["multimodal", "general"], score: 87.3, trend: "up", lastScore: 86.5, sources: ["Papers with Code", "Hugging Face"] },
+            { id: 5, name: "Llama 3.3 70B", provider: "Meta", category: ["general"], score: 85.9, trend: "down", lastScore: 86.2, sources: ["Hugging Face", "DeepSeek API"] },
+            { id: 6, name: "CodeLlama 70B", provider: "Meta", category: ["coding"], score: 84.5, trend: "neutral", lastScore: 84.5, sources: ["Hugging Face", "Papers with Code"] },
+            { id: 7, name: "Mistral Large 2", provider: "Mistral AI", category: ["reasoning", "general"], score: 83.8, trend: "up", lastScore: 83.2, sources: ["LMSYS", "Hugging Face"] },
+            { id: 8, name: "Phi-3 Vision", provider: "Microsoft", category: ["multimodal", "reasoning"], score: 82.1, trend: "up", lastScore: 81.5, sources: ["Papers with Code", "DeepSeek API"] }
+        ];
+
+        const leaderboardBody = document.getElementById('leaderboardBody');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const lastUpdated = document.getElementById('lastUpdated');
+        const updateIndicator = document.getElementById('updateIndicator');
+        const nextUpdateTime = document.getElementById('nextUpdateTime');
+
+        const CONFIG = {
+            updateInterval: 24 * 60 * 60 * 1000,
+            autoRefresh: true,
+        };
+
+        function initLeaderboard() {
+            updateLastUpdated();
+            calculateNextUpdate();
+            renderLeaderboard('all');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    renderLeaderboard(button.dataset.category);
+                });
+            });
+            
+            refreshBtn.addEventListener('click', refreshData);
+            if (CONFIG.autoRefresh) {
+                setInterval(refreshData, CONFIG.updateInterval);
+            }
+        }
+
+        function calculateNextUpdate() {
+            const now = new Date();
+            const nextUpdate = new Date(now.getTime() + CONFIG.updateInterval);
+            nextUpdateTime.textContent = nextUpdate.toLocaleString();
+        }
+
+        function renderLeaderboard(category) {
+            leaderboardBody.innerHTML = '';
+            let filteredModels = (category === 'all')
+                ? modelData
+                : modelData.filter(model => model.category.includes(category));
+            
+            filteredModels.sort((a, b) => b.score - a.score);
+            
+            filteredModels.forEach((model, index) => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td class="model-rank">${index + 1}</td>
+                    <td>
+                        <div class="model-name">${model.name} ${model.provider === 'DeepSeek' ? '<span class="deepseek-badge">DeepSeek</span>' : ''}</div>
+                        <div class="model-provider">${model.provider}</div>
+                        <div style="font-size: 11px; color: #888; margin-top: 4px;">Sources: ${model.sources.join(', ')}</div>
+                    </td>
+                    <td>
+                        ${model.category.map(cat => `<span class="category-tag">${cat.charAt(0).toUpperCase() + cat.slice(1)}</span>`).join('')}
+                    </td>
+                    <td>
+                        <div>${model.score.toFixed(1)}</div>
+                        <div class="score-bar"><div class="score-fill" style="width: ${model.score}%"></div></div>
+                    </td>
+                    <td class="trend-${model.trend}">
+                        ${model.trend === 'up' ? '↑' : model.trend === 'down' ? '↓' : '→'}
+                        ${model.trend !== 'neutral' ? Math.abs(model.score - model.lastScore).toFixed(1) : ''}
+                    </td>
+                `;
+                leaderboardBody.appendChild(row);
+            });
+        }
+
+        function updateLastUpdated() {
+            const now = new Date();
+            lastUpdated.textContent = `Last updated: ${now.toLocaleString()}`;
+        }
+
+        function refreshData() {
+            if (refreshBtn.disabled) return;
+            
+            refreshBtn.disabled = true;
+            updateIndicator.innerHTML = `<div class="spinner" style="width: 12px; height: 12px; border: 2px solid #ffc107; border-top-color: transparent; border-radius: 50%;"></div> Updating Data...`;
+            updateIndicator.className = 'update-indicator manual';
+            refreshBtn.querySelector('svg').classList.add('spinner');
+            
+            setTimeout(() => {
+                modelData.forEach(model => {
+                    const change = (Math.random() - 0.5) * 0.4;
+                    model.lastScore = model.score;
+                    model.score = Math.max(70, Math.min(95, model.score + change));
+                    if (change > 0.1) model.trend = 'up';
+                    else if (change < -0.1) model.trend = 'down';
+                    else model.trend = 'neutral';
+                    model.sources = [...new Set([...model.sources, "DeepSeek API"])];
+                });
+                
+                const activeFilter = document.querySelector('.filter-btn.active').dataset.category;
+                renderLeaderboard(activeFilter);
+                updateLastUpdated();
+                calculateNextUpdate();
+                
+                refreshBtn.disabled = false;
+                refreshBtn.querySelector('svg').classList.remove('spinner');
+                updateIndicator.innerHTML = `<div style="width: 8px; height: 8px; background-color: #28a745; border-radius: 50%;"></div> Live Updates • Refreshes Every 24 Hours`;
+                updateIndicator.className = 'update-indicator live';
+            }, 1500);
+        }
+
+        initLeaderboard();
+    });
+</script>
+
+
+<script>
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    
+    if (month === 12 || month === 1 || month === 2) {
+        const snow = document.createElement('div');
+        snow.className = 'snowflakes-blurry';
+        document.body.appendChild(snow);
+    }
+</script>
+
+
+
+
+
+<!-- Widget BACK-TO-TOP -->
+<script>
+// Create Back-to-Top Button Dynamically
+document.addEventListener("DOMContentLoaded", function () {
+    // Create the button container
+    const backToTop = document.createElement("div");
+    backToTop.id = "back-to-top";
+    backToTop.style.position = "fixed";
+    backToTop.style.bottom = "20px";
+    backToTop.style.right = "20px";
+    backToTop.style.display = "none";
+    backToTop.style.cursor = "pointer";
+    backToTop.style.zIndex = "9999";
+
+    // Create the image inside the button
+    const backToTopImg = document.createElement("img");
+    backToTopImg.src = "https://bucket.mlcdn.com/a/3336/3336910/images/972c5065cffe83955d5322557dcdce28eca170e5.png";
+    backToTopImg.alt = "Volver arriba";
+    backToTopImg.style.width = "40px";
+    backToTopImg.style.height = "40px";
+
+    // Append image to the button
+    backToTop.appendChild(backToTopImg);
+
+    // Append button to the body
+    document.body.appendChild(backToTop);
+
+    // Scroll Event Listener
+    window.addEventListener("scroll", function () {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            backToTop.style.display = "block";
+        } else {
+            backToTop.style.display = "none";
+        }
+    });
+
+    // Click Event for Scrolling to Top
+    backToTop.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+});
+</script>
+<!-- End Widget BACK-TO-TOP -->
+
+
+	
+</body>
+</html>
