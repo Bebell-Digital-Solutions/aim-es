@@ -1,0 +1,2684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- !!! IMPORTANTE: ACTUALIZA LA ETIQUETA TITLE PARA CADA PÁGINA ÚNICA !!! -->
+    <title>AIM Bootcamp: Formación en IA para Profesionales y Equipos | Práctica y Enfocada en ROI</title>
+    <meta name="description" content="Domina la IA en semanas. Formación en cohortes para profesionales y equipos corporativos. Laboratorios prácticos, gobernanza y resultados medibles. Aplica o reserva una demo.">
+    
+    <!-- Importar fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Iconos (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://bucket.mlcdn.com/a/3336/3336910/images/c6f729e3f2ce7e2bc59bf6037f6fe0f491d94819.png">
+
+    <!-- Spline Viewer para el fondo del Hero -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.28/build/spline-viewer.js"></script>
+  
+    <style>
+        /* --- Estilos de marca AIM (de la Base de Conocimientos) --- */
+        :root {
+            --skin-color: #ff5011;
+            --mirage-color: hsl(210, 10%, 23%);
+            --title-color: hsl(242, 8%, 98%);
+            --text-color: hsl(242, 8%, 80%);
+            --body-color: #0d0d0d;
+            --box-color: hsl(242, 14%, 12%);
+            --body-font: 'Inter', sans-serif;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            --small-font-size: 0.95rem;
+            --h3-font-size: 1.25rem;
+            --smaller-font-size: 0.75rem;
+            --mb15: 0.75rem;
+            --mb3: 1.5rem;
+        }
+
+        /* --- Base y Scrollbar --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            margin: 0;
+            font-family: var(--body-font);
+            background-color: var(--body-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 8rem; /* Espacio para la navegación fija */
+            overflow-x: hidden;
+        }
+        
+        main { max-width: 980px; margin: 0 auto; padding: 0 1rem; }
+        
+        img { max-width: 100%; height: auto; display: block; }
+        
+        a { text-decoration: none; cursor: pointer; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #333; }
+        ::-webkit-scrollbar-thumb { background: var(--skin-color); border-radius: 4px; }
+        
+        /* Clase contenedor utilitaria para el ancho máximo del contenido */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* --- Loader y Animaciones --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Contenedor del loader de página con fondo negro */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Encabezado de texto añadido */
+        .loader-header {
+            color: white;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Tu barra de progreso - sin cambios */
+        .progress {
+            width: 272.8px;
+            height: 41.7px;
+            border-radius: 28.8px;
+            color: #ff5011;
+            background-color: #000;
+            border: 2.9px solid;
+            position: relative;
+        }
+
+        .progress::before {
+            content: "";
+            position: absolute;
+            margin: 2.9px;
+            inset: 0 100% 0 0;
+            border-radius: inherit;
+            background: currentColor;
+            animation: progress-pf82op 1.5s forwards;
+        }
+
+        @keyframes progress-pf82op {
+            100% { inset: 0; }
+        }
+
+        /* Transición de ocultación */
+        .page-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* =========================== */
+        /* SECCIÓN 4: BARRA DE NAVEGACIÓN (ESCRITORIO POR DEFECTO) */
+        /* =========================== */
+        
+        #nav-bar {
+            position: fixed; 
+            top: 2rem; 
+            left: 50%; 
+            transform: translateX(-50%);
+            background: rgba(25, 25, 25, 0.85); 
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--box-color); 
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem; 
+            display: flex; 
+            align-items: center;
+            max-width: 1100px; 
+            width: 90%; 
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+        #nav-logo img { height: 35px; }
+        
+        /* Escritorio: nav-menu contiene todos los enlaces y está en flex */
+        #nav-menu { 
+            display: flex; 
+            gap: 1.5rem; 
+            margin-left: auto; 
+            align-items: center; 
+        }
+
+        /* Enlaces de navegación y CTA */
+        .nav-link { 
+            color: var(--text-color); 
+            transition: color 0.3s, transform 0.2s; 
+            font-weight: 500; 
+            position: relative;
+        }
+        .nav-link:hover { 
+            color: var(--skin-color); 
+            transform: translateY(-1px); 
+        }
+
+        .nav-cta {
+            background: linear-gradient(90deg, var(--skin-color), #d43a00);
+            color: var(--title-color); 
+            padding: 0.5rem 1rem; 
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(255, 80, 17, 0.4); 
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .nav-cta:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(255, 80, 17, 0.5); 
+        }
+        
+        .has-submenu { position: relative; }
+        
+        /* Submenú Estado por Defecto (Oculto - Escritorio) */
+        .submenu-courses {
+            position: absolute; 
+            top: 100%; 
+            left: 50%; 
+            transform: translateX(-50%);
+            background: var(--box-color); 
+            border-radius: 0.5rem; 
+            padding: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+            opacity: 0; 
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, top 0.3s; 
+            width: 320px;
+            z-index: 1001;
+            /* Reiniciar estilos móviles */
+            margin-left: 0;
+            padding-left: 0.75rem;
+        }
+
+        /* Submenú Estado Activo (Mostrado mediante click en JavaScript - Escritorio) */
+        .submenu-courses.active { 
+            opacity: 1; 
+            visibility: visible;
+            top: calc(100% + 15px);
+        }
+        
+        .submenu-link { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+            color: var(--text-color); 
+            padding: 0.5rem; 
+            border-radius: 0.25rem; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
+
+        .submenu-link:hover { 
+            background-color: rgba(255, 80, 17, 0.1); 
+            color: var(--skin-color); 
+        }
+
+        .submenu-link i { 
+            width: 15px; 
+            text-align: center; 
+        }
+
+        /* Controles de visibilidad móvil (Estado por defecto/escritorio) */
+        #mobile-menu-toggle { 
+            display: none; 
+            border: none;
+            background: transparent;
+            color: var(--skin-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .nav-cta.mobile-cta-only { display: none; }
+        .nav-cta.desktop-cta-only { display: block; }
+        
+   
+        
+        /* --- Pie de página (Footer principal de la página) --- */
+        .footer { padding-top: 2rem; }
+
+        .footer-bg {
+            background-color: var(--box-color);
+            padding: 3rem 0 3.5rem;
+        }
+        
+        .footer-container {
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 1.6rem;
+        }
+
+        .footer-title {
+            font-size: var(--h3-font-size);
+            margin-bottom: 0.25rem; 
+            color: var(--title-color);
+        }
+
+        .footer-subtitle {
+            font-size: var(--small-font-size);
+            color: var(--title-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-self: center;
+            column-gap: 2rem;
+            color: var(--title-color);
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links a { color: var(--title-color); transition: color 0.3s; }
+        .footer-links a:hover { color: var(--skin-color); }
+
+        .footer-socials {
+            justify-self: flex-end; /* Se empuja a la derecha en escritorio */
+            display: flex; 
+            align-items: center;
+            gap: var(--mb15);
+        }
+
+        .footer-social {
+            font-size: 1.25rem;
+            color: var(--title-color);
+            transition: color 0.3s;
+        }
+
+        .footer-social:hover { 
+            color: var(--skin-color); 
+            cursor: pointer; 
+        }
+
+        .footer-copy {
+            font-size: var(--smaller-font-size);
+            text-align: center;
+            margin-top: 4.5rem;
+        }
+
+        .footer-copy a { color: var(--title-color); }
+        .footer-copy a:hover { color: var(--skin-color); }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            gap: 0.5rem; 
+        }
+        .footer-brand-text { text-align: left; }
+        .footer-logo {
+            width: 30px;
+            height: auto;
+            display: block;
+        }
+        .footer-logo:hover {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        /* --- Estilos personalizados para el wireframe de la página de inicio --- */
+        .section {
+            background-color: var(--box-color);
+            border-radius: 12px;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0; /* Comienza oculto para la animación */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 80, 17, 0.2);
+        }
+
+        h1 {
+            color: var(--skin-color);
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        h2 {
+            color: var(--title-color);
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-weight: 700;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 80%;
+            background-color: var(--skin-color);
+            border-radius: 3px;
+        }
+
+        h3 {
+            color: var(--title-color);
+            font-size: var(--h3-font-size);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .h3-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .h3-with-icon i {
+            color: var(--skin-color);
+            font-size: 1.5rem;
+        }
+
+        ul.icon-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.icon-list li {
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .icon-list i {
+            color: var(--skin-color); /* #ff5011 */
+            font-size: 1.5rem;
+            min-width: 24px;
+            margin-top: 0.2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon {
+            color: var(--skin-color);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            min-width: 30px;
+            margin-top: 0.2rem;
+        }
+
+        .feature-content h4 {
+            color: var(--title-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .feature-content p {
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        
+        
+        
+        
+        
+        
+        /* Sección Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: -1rem; /* Compensa el padding-top del body */
+        }
+        
+        .hero spline-viewer {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            max-width: 2200px;
+            height: 100%;
+            z-index: 0;
+            transform: scale(1.13);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 1rem;
+            color: var(--title-color);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+        
+        .hero-content h1 {
+            color: var(--title-color);
+            font-size: 3.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .hero-cta-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .hero-cta-label {
+            font-size: 1.1rem;
+            color: var(--title-color);
+            font-weight: 600;
+        }
+        
+        .hero-cta {
+            background: linear-gradient(90deg, var(--skin-color), #d43a00);
+            color: var(--title-color);
+            padding: 0.8rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(255, 80, 17, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            min-width: 200px;
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 80, 17, 0.6);
+        }
+        
+        .hero-micro-reassurance {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-top: 1rem;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .reassurance-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 1rem;
+        }
+        
+        .reassurance-item i { color: var(--skin-color); }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /* Barra de Prueba Social */
+        .social-proof-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 3rem auto;
+            margin-top: 0;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+            background-color: var(--box-color);
+            color: linear-gradient(90deg, var(--skin-color), #d43a00);
+            border-radius: 12px;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .social-proof-bar img {
+            height: 50px;
+            filter: grayscale(100%) brightness(150%);
+            opacity: 0.7;
+            transition: opacity 0.3s, filter 0.3s;
+        }
+        
+        .social-proof-bar img:hover {
+            filter: grayscale(0%) brightness(100%);
+            opacity: 1;
+        }
+        
+        /* CTA Secundario (Descargar Temario) */
+        .secondary-cta-link {
+            display: inline-block;
+            color: var(--skin-color);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: transform 0.2s, color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .secondary-cta-link:hover {
+            transform: translateX(5px);
+            color: var(--title-color);
+        }
+        
+        /* Sección de Cajas */
+        .boxes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .box {
+            background: var(--box-color);
+            text-align: center;
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow);
+            border-radius: 12px;
+            border: 1px solid var(--mirage-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .box:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 80, 17, 0.5);
+        }
+
+        .box h3 { 
+            color: var(--title-color); 
+            margin-top: 1rem; 
+            margin-bottom: 0.5rem; 
+        }
+        
+        .box i { color: var(--skin-color); }
+
+        .why-aim-section {
+            background-color: var(--box-color);
+            border-radius: 12px;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .why-aim-content { text-align: left; }
+
+        .why-aim-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .why-aim-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Sección Elige Tu Camino */
+        .path-section {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .path-section h2 {
+            text-align: center;
+            padding-left: 0;
+        }
+
+        .path-section h2::before { display: none; }
+
+        .path-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .path-card {
+            background-color: var(--box-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .path-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255, 80, 17, 0.2);
+        }
+        
+        .path-card h3 {
+            color: var(--skin-color);
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        
+        .path-card p {
+            margin-bottom: 1rem;
+            font-size: var(--small-font-size);
+        }
+        
+        .path-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .path-card ul li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            font-size: var(--small-font-size);
+        }
+        
+        .path-card ul li i {
+            color: var(--skin-color);
+            margin-right: 0.6rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .path-card .cta {
+            display: block;
+            width: 100%;
+            margin-top: auto;
+            text-align: center;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+        }
+        
+        /* Sección de Habilidades */
+        .skills-section {
+            background-color: var(--box-color);
+            border-radius: 12px;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .skills-content { text-align: left; }
+
+        .skills-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .skills-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Estilos del Carrusel Desvaneciente */
+        .fading-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que las imágenes llenen el espacio de manera consistente */
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out; /* Transición de desvanecimiento suave */
+            border-radius: 8px;
+        }
+
+        .carousel-image.active {
+            opacity: 1;
+            position: relative; /* Hace que la imagen activa establezca la altura del contenedor */
+        }
+        
+        /* Línea de tiempo del Currículum */
+        .timeline-section {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 4rem 1rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .timeline-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-left: 0;
+        }
+
+        .timeline-section h2::before { display: none; }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--mirage-color);
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .timeline-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--box-color);
+            border: 4px solid var(--skin-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 0 2rem;
+        }
+
+        .timeline-content.left {
+            text-align: right;
+            padding-right: 2rem;
+        }
+
+        .timeline-content.right { padding-left: 2rem; }
+
+        .timeline-week {
+            color: var(--skin-color);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--title-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Testimonios */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-proof-section h2 {
+            text-align: center;
+            padding-left: 0;
+        }
+
+        .social-proof-section h2::before { display: none; }
+
+        .testimonial-card {
+            background-color: var(--body-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            font-style: italic;
+            font-size: var(--small-font-size);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: "\201C";
+            font-size: 3rem;
+            color: var(--skin-color);
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-card p {
+            margin-bottom: 1rem;
+            padding-top: 1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--title-color);
+            display: block;
+            margin-top: 0.5rem;
+            font-style: normal;
+        }
+
+        .testimonial-company {
+            font-size: var(--smaller-font-size);
+            color: var(--text-color);
+            font-style: normal;
+        }
+        
+        /* CSS Único para la Sección de Prueba Social Solo Logos */
+        #social-proof-logos-section .social-proof-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+            padding: 2rem 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+            border-top: 1px solid var(--mirage-color);
+            border-bottom: 1px solid var(--mirage-color);
+        }
+
+        #social-proof-logos-section .social-proof-bar img {
+            height: 80px; 
+            width: auto;
+            max-width: 260px;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(150%);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        #social-proof-logos-section .social-proof-bar img:hover {
+            filter: grayscale(0%) brightness(100%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Sección de Precios */
+        .pricing-section {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .pricing-section h2 {
+            text-align: center;
+            padding-left: 0;
+        }
+
+        .pricing-section h2::before { display: none; }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .pricing-card {
+            background-color: var(--box-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .pricing-card h3 {
+            color: var(--skin-color);
+            margin-bottom: 1rem;
+        }
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--title-color);
+            margin-bottom: 1rem;
+        }
+        .pricing-card .guarantee {
+            font-size: var(--small-font-size);
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+        .pricing-card ul {
+            list-style: none;
+            padding-left: 0;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        .pricing-card ul li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: var(--small-font-size);
+            color: var(--text-color);
+        }
+        .pricing-card ul li i {
+            color: var(--skin-color);
+            margin-right: 0.6rem;
+            font-size: 0.9rem;
+        }
+        .pricing-card .cta {
+            display: block;
+            width: 100%;
+            margin-top: auto;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+        }
+        
+        /* Sección de FAQ */
+        .faq-section {
+            background-color: var(--box-color);
+            border-radius: 12px;
+            border: 1px solid var(--mirage-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-left: 0;
+        }
+
+        .faq-section h2::before { display: none; }
+
+        .faq-item {
+            background-color: var(--body-color);
+            border-radius: 0.75rem;
+            border: 1px solid var(--mirage-color);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: var(--title-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .faq-question:hover { color: var(--skin-color); }
+        .faq-question i { transition: transform 0.3s; }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            color: var(--text-color);
+            font-size: var(--small-font-size);
+            padding-top: 0;
+        }
+        .faq-answer.show {
+            max-height: 200px;
+            padding-top: 1rem;
+        }
+        .faq-question.active i { transform: rotate(180deg); }
+        
+        /* Estilo General del Botón CTA */
+        .cta-button {
+            background: linear-gradient(90deg, var(--skin-color), #d43a00);
+            color: var(--title-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(255, 80, 17, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 80, 17, 0.5);
+        }
+        
+        /* Microcopy */
+        .microcopy {
+            font-size: var(--small-font-size);
+            color: var(--text-color);
+            margin-top: 1rem;
+        }
+
+        /* ====================================================== */
+        /* --- DISEÑO MÓVIL (ACTUALIZADO AL PUNTO DE QUIEBRE 980px) --- */
+        /* ====================================================== */
+        @media screen and (max-width: 980px) {
+            body { 
+                padding-top: 6rem; /* Espacio reducido para móvil */
+            }
+            
+            /* --- Barra de navegación móvil (fija en la parte superior) --- */
+            #nav-bar {
+                padding: 0.5rem 1rem;
+                justify-content: space-between;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+                width: 100%;
+                max-width: 100%;
+                top: 0;
+                left: 0;
+                transform: none; /* Reiniciar transform */
+                border-radius: 0; /* Reiniciar radio del borde */
+                border: none;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+            
+            #mobile-menu-toggle {
+                display: block;
+                position: relative;
+                z-index: 1002;
+            }
+            
+            /* --- Superposición del menú móvil --- */
+            #nav-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--body-color); 
+                z-index: 1001; 
+                flex-direction: column;
+                justify-content: flex-start; 
+                align-items: center; 
+                gap: 1.5rem;
+                padding: 6rem 1.5rem 2rem; 
+                margin: 0;
+                overflow-y: auto;
+            }
+
+            #nav-menu.mobile-open {
+                display: flex;
+            }
+            
+            #nav-menu .nav-link,
+            #nav-menu .nav-item {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: var(--title-color);
+                padding: 0.5rem 0;
+                margin: 0;
+                width: 100%; 
+                text-align: center;
+            }
+            
+            #nav-menu .nav-item { 
+                margin: 0; 
+                padding: 0; 
+            }
+
+            #nav-menu .nav-link:hover {
+                color: var(--skin-color);
+                transform: none;
+            }
+            
+            /* --- Menú desplegable móvil (Estilo Acordeón) --- */
+            .has-submenu {
+                display: flex;
+                flex-direction: column;
+                align-items: center; 
+                width: 100%; 
+            }
+            
+            .submenu-courses {
+                position: static; 
+                width: 100%; 
+                background: transparent; 
+                box-shadow: none;
+                padding: 0; 
+                margin: 0; 
+                opacity: 0; 
+                visibility: hidden;
+                display: none;
+                max-height: 0;
+                overflow: hidden;
+                transition: opacity 0.3s, max-height 0.3s;
+                transform: none; 
+                flex-direction: column; 
+                align-items: flex-start; 
+                border-radius: 0;
+            }
+            
+            .submenu-courses.active { 
+                display: flex;
+                opacity: 1;
+                visibility: visible;
+                max-height: 500px;
+                margin-top: 0.5rem; 
+                background: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+            }
+            
+            .submenu-courses .submenu-link {
+                font-size: 1.1rem;
+                padding: 0.8rem 1rem 0.8rem 2rem;
+                justify-content: flex-start; 
+                width: 100%;
+                text-align: left;
+                margin: 0;
+            }
+            
+            /* Botón CTA móvil */
+            .nav-cta.mobile-cta-only {
+                padding: 0.8rem 2rem; 
+                width: 100%;
+                max-width: none;
+                white-space: nowrap;
+                font-size: 1.2rem; 
+                font-weight: 700;
+                margin-top: 1rem; 
+                display: block !important; 
+                text-align: center;
+            }
+            
+            /* Ocultar elementos de escritorio */
+            .nav-cta.desktop-cta-only { 
+                display: none !important; 
+            }
+            
+            /* Ajustes generales de diseño para tablet/móvil */
+            .boxes { grid-template-columns: 1fr; }
+            .why-aim-section, .skills-section { grid-template-columns: 1fr; gap: 2rem; }
+            .why-aim-image { order: -1; }
+            
+            .hero spline-viewer { top: 40px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-cta-group { flex-direction: column; gap: 1.5rem; }
+            .hero-cta-block { width: 100%; }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                row-gap: 3rem;
+                text-align: center;
+            }
+            
+            /* CORRECCIÓN: Centrar elementos del pie de página en móvil */
+            .footer-brand {
+                align-items: center;
+                text-align: center;
+                justify-content: center;
+                justify-self: center; /* Asegura que la marca se centre en la cuadrícula */
+            }
+            
+            .footer-brand-text {
+                text-align: center;
+            }
+            
+            .footer-socials {
+                justify-content: center;
+                justify-self: center; /* CORRECCIÓN: Anula 'flex-end' de escritorio para centrar iconos */
+                display: flex;
+                gap: var(--mb15);
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                row-gap: 1.5rem;
+                justify-self: center;
+            }
+            
+            /* Ajustes de la línea de tiempo */
+            .timeline-container { padding-left: 30px; }
+            .timeline-line { left: 15px; }
+            .timeline-item { flex-direction: column; margin-bottom: 2rem; }
+            .timeline-dot { left: 15px; top: 0; }
+            .timeline-content { width: 100%; padding: 0 0 0 40px; text-align: left !important; }
+            .timeline-content.left, .timeline-content.right { padding-left: 40px; padding-right: 0; text-align: left; }
+            
+            /* Logos */
+             #social-proof-logos-section .social-proof-bar { gap: 2rem; padding: 1rem 0; }
+             #social-proof-logos-section .social-proof-bar img { height: 60px; max-width: 120px; }
+        }
+        
+        /* Ajustes adicionales para pantallas más pequeñas */
+        @media (max-width: 480px) {
+            #social-proof-logos-section .social-proof-bar { gap: 1rem; }
+            #social-proof-logos-section .social-proof-bar img { height: 50px; max-width: 150px; }
+        }
+
+        /* Escritorio: Asegurar visibilidad correcta cuando no es móvil */
+        @media screen and (min-width: 981px) {
+            #nav-menu { display: flex !important; }
+            .nav-cta.desktop-cta-only { display: block !important; }
+        }
+        
+        
+        
+        
+        
+
+/* =========================== */
+/* BADGE DE ESTADO OPERACIONAL - CON PUNTOS ANIMADOS */
+/* =========================== */
+
+.status-badge-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    
+    /* Glassmorphism effect */
+    background: rgba(255, 80, 17, 0.25);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    
+    border: 1.5px solid rgba(255, 80, 17, 0.5);
+    border-radius: 100px;
+    
+    box-shadow: 
+        0 8px 32px rgba(255, 80, 17, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    
+    padding: 0.6rem 1.5rem 0.6rem 1.2rem;
+    
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Importante: permite que el badge se expanda según el contenido */
+    width: auto;
+    max-width: fit-content;
+}
+
+.status-badge:hover {
+    background: rgba(255, 80, 17, 0.35);
+    backdrop-filter: blur(15px) saturate(200%);
+    -webkit-backdrop-filter: blur(15px) saturate(200%);
+    
+    border-color: rgba(255, 80, 17, 0.8);
+    box-shadow: 
+        0 12px 40px rgba(255, 80, 17, 0.35),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4);
+    
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* Luz de estado con animación */
+.status-light {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ff0;
+    box-shadow: 0 0 15px #ff0;
+    flex-shrink: 0;
+    
+    animation: statusLightAnimation 6s ease-in-out forwards;
+}
+
+/* Texto del estado */
+.status-text {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Puntos suspensivos animados - como loading */
+.loading-dots {
+    display: inline-block;
+    width: 24px;
+    text-align: left;
+}
+
+.loading-dots::after {
+    content: '...';
+    animation: dotsAnimation 1.5s steps(4, end) infinite;
+    display: inline-block;
+    width: 24px;
+    letter-spacing: 2px;
+}
+
+@keyframes dotsAnimation {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
+
+/* Cuando el texto cambia, eliminamos los puntos */
+.status-text.final .loading-dots {
+    display: none;
+}
+
+/* Animación para la luz de estado */
+@keyframes statusLightAnimation {
+    0% {
+        background-color: #ff0;
+        box-shadow: 0 0 15px #ff0;
+    }
+    10% { opacity: 0.3; }
+    20% { opacity: 1; }
+    30% { opacity: 0.3; }
+    40% { opacity: 1; }
+    50% { opacity: 0.3; }
+    60% { opacity: 1; }
+    70% { opacity: 0.3; }
+    80% { opacity: 1; }
+    90% {
+        opacity: 0.3;
+        background-color: #ff0;
+        box-shadow: 0 0 15px #ff0;
+    }
+    100% {
+        background-color: #0f0;
+        box-shadow: 0 0 20px #0f0;
+        opacity: 1;
+    }
+}
+
+/* Efecto de brillo en el borde del badge */
+.status-badge::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(255, 80, 17, 0.5), 
+        rgba(255, 200, 100, 0.3), 
+        rgba(255, 80, 17, 0.5));
+    border-radius: 100px;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(8px);
+    transition: opacity 0.3s ease;
+}
+
+.status-badge:hover::before {
+    opacity: 0.8;
+    filter: blur(12px);
+}
+
+/* Animación de entrada para el badge */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ajuste responsivo */
+@media screen and (max-width: 768px) {
+    .status-badge {
+        padding: 0.5rem 1.2rem 0.5rem 1rem;
+    }
+    
+    .status-text {
+        font-size: 0.8rem;
+    }
+    
+    .status-light {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+
+
+        
+                
+ /* =========================== */
+/* Copos De Nieve Con Efectos Borrosos */
+/* =========================== */ 
+
+/* Capa base de copos de nieve con efectos borrosos */
+        body::before {
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 9999;
+          background-image: 
+            /* Copos de nieve grandes y borrosos */
+            radial-gradient(8px 8px at 10% 20%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.3) 70%, transparent 100%),
+            radial-gradient(12px 12px at 20% 30%, rgba(255, 255, 255, 0.5) 25%, rgba(255, 255, 255, 0.2) 60%, transparent 100%),
+            radial-gradient(6px 6px at 30% 10%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0.25) 80%, transparent 100%),
+            radial-gradient(10px 10px at 40% 40%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.15) 75%, transparent 100%),
+            radial-gradient(14px 14px at 50% 60%, rgba(255, 255, 255, 0.55) 30%, rgba(255, 255, 255, 0.2) 65%, transparent 100%),
+            radial-gradient(7px 7px at 60% 80%, rgba(255, 255, 255, 0.65) 45%, rgba(255, 255, 255, 0.3) 85%, transparent 100%),
+            radial-gradient(9px 9px at 70% 50%, rgba(255, 255, 255, 0.45) 35%, rgba(255, 255, 255, 0.18) 70%, transparent 100%),
+            radial-gradient(11px 11px at 80% 20%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.22) 75%, transparent 100%),
+            radial-gradient(5px 5px at 90% 70%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0.35) 90%, transparent 100%),
+            radial-gradient(15px 15px at 15% 90%, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0.12) 55%, transparent 100%),
+            
+            /* Copos de nieve medianos extra borrosos */
+            radial-gradient(4px 4px at 25% 45%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0.1) 90%, transparent 100%),
+            radial-gradient(6px 6px at 75% 35%, rgba(255, 255, 255, 0.7) 15%, rgba(255, 255, 255, 0.05) 85%, transparent 100%),
+            radial-gradient(3px 3px at 45% 75%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.15) 95%, transparent 100%),
+            radial-gradient(8px 8px at 85% 65%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.08) 80%, transparent 100%);
+          
+          background-repeat: no-repeat;
+          animation: snowfall 15s linear infinite;
+          filter: blur(0.5px); /* Desenfoque general ligero para suavidad */
+        }
+
+        /* Capa de copos de nieve medianos borrosos */
+        body::after {
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 9998;
+          background-image: 
+            /* Copos de nieve medianos borrosos */
+            radial-gradient(4px 4px at 5% 15%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.1) 90%, transparent 100%),
+            radial-gradient(7px 7px at 25% 35%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.08) 80%, transparent 100%),
+            radial-gradient(3px 3px at 35% 5%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0.15) 95%, transparent 100%),
+            radial-gradient(5px 5px at 45% 45%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0.05) 70%, transparent 100%),
+            radial-gradient(6px 6px at 55% 65%, rgba(255, 255, 255, 0.45) 35%, rgba(255, 255, 255, 0.1) 75%, transparent 100%),
+            radial-gradient(3.5px 3.5px at 65% 85%, rgba(255, 255, 255, 0.55) 40%, rgba(255, 255, 255, 0.12) 85%, transparent 100%),
+            radial-gradient(4.5px 4.5px at 85% 25%, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0.06) 65%, transparent 100%),
+            radial-gradient(2.5px 2.5px at 95% 55%, rgba(255, 255, 255, 0.65) 50%, rgba(255, 255, 255, 0.2) 95%, transparent 100%),
+            radial-gradient(8px 8px at 15% 75%, rgba(255, 255, 255, 0.25) 20%, rgba(255, 255, 255, 0.04) 60%, transparent 100%);
+          
+          background-repeat: no-repeat;
+          animation: snowfall 20s linear infinite;
+          filter: blur(0.8px); /* Más desenfoque para la capa de fondo */
+          opacity: 0.8;
+        }
+
+        /* Capa adicional para copos de nieve pequeños extra borrosos */
+        .snowflakes-blurry {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 9997;
+          background-image: 
+            /* Copos de nieve pequeños muy borrosos */
+            radial-gradient(2px 2px at 12% 28%, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 0.05) 100%, transparent 100%),
+            radial-gradient(1.5px 1.5px at 32% 18%, rgba(255, 255, 255, 0.5) 70%, rgba(255, 255, 255, 0.1) 100%, transparent 100%),
+            radial-gradient(2.5px 2.5px at 48% 52%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.03) 100%, transparent 100%),
+            radial-gradient(1px 1px at 68% 72%, rgba(255, 255, 255, 0.6) 80%, rgba(255, 255, 255, 0.15) 100%, transparent 100%),
+            radial-gradient(3px 3px at 82% 38%, rgba(255, 255, 255, 0.35) 40%, rgba(255, 255, 255, 0.07) 100%, transparent 100%),
+            radial-gradient(1.8px 1.8px at 22% 88%, rgba(255, 255, 255, 0.45) 65%, rgba(255, 255, 255, 0.09) 100%, transparent 100%),
+            radial-gradient(2.2px 2.2px at 58% 12%, rgba(255, 255, 255, 0.4) 55%, rgba(255, 255, 255, 0.06) 100%, transparent 100%),
+            radial-gradient(0.8px 0.8px at 88% 68%, rgba(255, 255, 255, 0.7) 85%, rgba(255, 255, 255, 0.2) 100%, transparent 100%);
+          
+          background-repeat: no-repeat;
+          animation: snowfall 25s linear infinite;
+          filter: blur(1.2px); /* Máximo desenfoque para efecto de distancia */
+          opacity: 0.6;
+        }
+
+        /* Animación de nevada mejorada con ligero movimiento horizontal */
+        @keyframes snowfall {
+          0% {
+            transform: translateY(-100%) translateX(0);
+          }
+          25% {
+            transform: translateY(-50%) translateX(5px);
+          }
+          50% {
+            transform: translateY(0%) translateX(0);
+          }
+          75% {
+            transform: translateY(50%) translateX(-5px);
+          }
+          100% {
+            transform: translateY(100vh) translateX(0);
+          }
+        }
+
+        /* Animación alternativa para algo de aleatoriedad */
+        @keyframes snowfall-alt {
+          0% {
+            transform: translateY(-100%) translateX(10px);
+          }
+          50% {
+            transform: translateY(0%) translateX(-10px);
+          }
+          100% {
+            transform: translateY(100vh) translateX(10px);
+          }
+        }
+    </style>
+   
+   <script async defer src='https://app.visitortracking.com/assets/js/tracer.js'></script>
+   <script>
+    function init_tracer() { 
+       var tracer = new Tracer({  
+       websiteId : "b407a01d-cf47-4b0b-bdb5-9eae70c5e9cb",  
+       async : true, 
+       debug : false }); 
+     } 
+    </script>
+    
+</head>
+<body>
+
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-header">Cargando AIM™</div>
+        <div class="progress"></div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Barra de Navegación (Header) -->
+    <nav id="nav-bar">
+        <a href="/" id="nav-logo">
+            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/b28800186bb16bf422fabd87ca9f369da73e62e9.png" alt="Logo AIM" />
+        </a>
+        
+        <!-- BOTÓN DE ALTERNANCIA MÓVIL -->
+        <button id="mobile-menu-toggle" aria-label="Abrir Menú">
+            <i class="fa-solid fa-bars" id="toggle-icon"></i>
+        </button>
+        
+        <div id="nav-menu">
+            <a href="/" class="nav-link" style="color: var(--skin-color);">Inicio</a>
+            <a href="/about" class="nav-link">Acerca de</a>
+            
+            <!-- Desplegable de Cursos -->
+            <div class="nav-item has-submenu">
+                <a href="/courses" class="nav-link" id="courses-link">Cursos <i class="fa-solid fa-angle-down" style="font-size: 0.8em;"></i></a>
+                <div class="submenu-courses" id="courses-submenu">
+                    <a href="/courses" class="submenu-link"><i class="fa-solid fa-list-ul"></i> Todos los Cursos</a>
+                    <a href="/1-ai-foundation" class="submenu-link"><i class="fa-solid fa-cubes"></i> Fundamentos de IA</a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/3-security-privacy-compliance" class="submenu-link"><i class="fa-solid fa-shield"></i> Seguridad, Privacidad y Cumplimiento</a> 
+                    
+                    
+                    
+                    
+                    
+                    <a href="/2-prompting-craftsmanship" class="submenu-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Elaboración de Prompts</a>
+                    
+                                               
+                    
+                    <a href="/4-building-your-ai-brain" class="submenu-link"><i class="fa-solid fa-brain"></i> Construyendo tu Cerebro de IA</a>
+                    <a href="/5-building-autonomous-ai-agents" class="submenu-link"><i class="fa-solid fa-robot"></i> Sistemas Autmatizados con IA</a>
+                </div>
+            </div>
+            
+            <a href="/pricing-page" class="nav-link">Precios</a>
+            <a href="/contact" class="nav-link">Contacto</a>
+            
+            
+                    <!-- 👇 NUEVO: ICONO DE TRADUCCIÓN (antes del CTA) -->
+        <a href="https://tudominio.com/version-en-ingles" class="nav-link translate-link" id="translate-icon" title="Cambiar idioma / Switch language">
+            <i class="fa-solid fa-language"></i> 
+            <span class="translate-text"></span>
+        </a>
+        
+       <!-- CTA DE ESCRITORIO -->
+            <a href="/portal" class="nav-cta desktop-cta-only">INICIAR SESIÓN</a>
+            
+            <!-- CTA MÓVIL -->
+            <a href="/portal" class="nav-cta mobile-cta-only">INICIAR SESIÓN</a>
+        </div>
+    </nav>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <main>
+        <!-- Sección Hero -->
+        <section class="hero">
+            <spline-viewer url="https://prod.spline.design/w5vaKcpN4KUx8TDq/scene.splinecode"></spline-viewer>
+            
+            <div class="hero-content">
+            
+            
+            
+        <!-- BADGE DE ESTADO OPERACIONAL - VERSIÓN SIMPLE Y FUNCIONAL -->
+        <div class="status-badge-container">
+            <div class="status-badge" id="statusBadge">
+                <span class="status-light"></span>
+                <span class="status-text" id="statusText">Cargando sistemas ...</span>
+            </div>
+        </div>   
+        
+        
+        
+        
+        
+            
+         
+                <h1>Aprende IA de Manera Correcta. Estructurada. Práctica. Responsable.</h1>
+                <p>Un programa estructurado de dominio de IA construido para profesionales, equipos y organizaciones que necesitan claridad, control y ejecución segura.</p>
+                
+                <div class="hero-cta-group">
+                    <div class="hero-cta-block">
+                        <div class="hero-cta-label">Soy un Profesional</div>
+                        <a href="/pricing-page" class="hero-cta">Aplicar a la Cohorte</a>
+                    </div>
+                    
+                    <div class="hero-cta-block">
+                        <div class="hero-cta-label">Dirijo un Equipo</div>
+                        <a href="/contact" class="hero-cta">Agendar una Demo</a>
+                    </div>
+                </div>
+                
+                <div class="hero-micro-reassurance">
+                    <span class="reassurance-item"><i class="fa-solid fa-star"></i> Calificación promedio 4.9/5</span>
+                    <span class="reassurance-item"><i class="fa-solid fa-certificate"></i> Certificado al finalizar</span>
+                    <span class="reassurance-item"><i class="fa-solid fa-shield-halved"></i> Prueba Gratuita de 14 Días</span>
+                </div>
+                
+                <a href="/aim-syllabus" target="_blank" class="secondary-cta-link" download>Descargar Temario (PDF) <i class="fa-solid fa-download"></i></a>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- Barra de Prueba Social -->
+        <section class="social-proof-bar container">
+            <p style="color: var(--skin-color); font-weight: 500; margin-right: 1rem; white-space: nowrap;">Funciona con:</p>
+            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/5a670bcb835fe1f260086188d1059285e3baab8e.png" alt="Logo OpenAI">
+            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/435e8f207e68acfb6e491f39a0defdbe88cd8709.png" alt="Logo Meta">
+            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/3ba4b1a4a17452494fb4272871453b8bbb4485d7.png" alt="Logo Google">
+            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/55834c6ba4b15fb016a860e42c6539c677cbfe27.png" alt="Logo Microsoft">
+        </section>
+        
+        <!-- Sección Por Qué AIM (Propuestas de Valor) -->
+        <section class="why-aim-section container" style="animation-delay: 0.4s;">
+            <div class="why-aim-content">
+                <h2>Programa de Dominio AIM, AI Mastery</h2>
+                <div class="feature-item">
+                    <div class="feature-content">
+                        <h4>Bienvenido a AIM™, el Programa de Dominio de IA donde profesionales y equipos aprenden rápido, construyen responsablemente y escalan el impacto.</h4>
+                        <p>AIM es tu centro integral para pasar de la curiosidad por la IA a resultados en el mundo real. Ya seas un profesional independiente que hace crecer su negocio o un líder corporativo que habilita a sus equipos, combinamos formación práctica, laboratorios prácticos y gobernanza por diseño para ayudarte a trabajar de manera más inteligente hoy y mantenerte competitivo mañana.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="why-aim-image">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/1a6f90e9d77dc969ff7e463de8573a2c4851e23a.png" alt="Experiencia de Aprendizaje AIM">
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+        <!-- Sección de Cajas -->
+        <section class="boxes">
+            <div class="box">
+                <i class="fas fa-brain fa-3x"></i>
+                <h3>Adaptados a la Industria</h3>
+                <p>Aprende de líderes de la industria a la vanguardia de la tecnología y aplicación de la IA.</p>
+            </div>
+            <div class="box">
+                <i class="fas fa-book fa-3x"></i>
+                <h3>Recursos Profesionales</h3>
+                <p>Obtén acceso a guías exclusivas, plantillas y herramientas con nuestro plan de por vida.</p>
+            </div>
+            <div class="box">
+                <i class="fas fa-sync-alt fa-3x"></i>
+                <h3>Actualización Contínua</h3>
+                <p>El mundo de la IA está en constante evolución. Tus materiales del curso también lo estarán.</p>
+            </div>
+            <div class="box">
+                <i class="fas fa-users fa-3x"></i>
+                <h3>Acceso a la Comunidad</h3>
+                <p>Conéctate con otros estudiantes, comparte ideas, colabora y crece juntos.</p>
+            </div>
+        </section>
+        
+        
+        
+        
+        <!-- Sección Por Qué AIM (Propuestas de Valor) -->      
+        <section class="why-aim-section container" style="animation-delay: 0.4s;">
+            <div class="why-aim-content">
+                <h2>¿Por qué elegir AIM?</h2>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-flask"></i></div>
+                    <div class="feature-content">
+                        <h4>Aprende Haciendo:</h4>
+                        <p>Entrega entregables reales como automatizaciones de IA, bibliotecas de prompts y un proyecto final adaptado a tu rol.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="feature-content">
+                        <h4>Seguro para la Empresa:</h4>
+                        <p>Prácticas prioritarias de gobernanza. Privacidad de datos, controles de riesgo y plantillas de políticas integradas.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <div class="feature-content">
+                        <h4>Dominio Agnóstico de Herramientas:</h4>
+                        <p>Principios sobre exageración. Usa ChatGPT/Copilot, más stacks sin código/código bajo que tu empresa ya tiene.</p>
+                    </div>
+                </div>
+                <p class="microcopy">Conclusión clave: Vendemos resultados, no horas.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="/aim-syllabus" target="_blank" class="cta-button">Descargar el Temario →</a>
+                </div>
+            </div>
+            <div class="why-aim-image">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/3df3471a207cf06ebbe29a1c936ddcb33ecf38cd.png" alt="Experiencia de Aprendizaje AIM">
+            </div>
+        </section>
+        
+        
+        
+        
+        
+
+        <!-- Sección Elige Tu Camino -->
+        <section class="path-section container" style="animation-delay: 0.6s;">
+            <h2>Elige Tu Camino</h2>
+            <div class="path-options">
+                <div class="path-card" id="professionals-path">
+                    <h3>Para Profesionales</h3>
+                    <p><strong>Resultado:</strong> Conviértete en la "persona IA" en el trabajo. Ahorra de 5 a 10 horas a la semana, mejora tu producto laboral y obtén un certificado reconocido por los empleadores.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check-circle"></i> Perfecto para especialistas en marketing, analistas, operaciones y contribuyentes individuales</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Construye un kit de herramientas de IA específico para tu rol que puedas usar inmediatamente</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Completa un proyecto final para mostrar tus nuevas habilidades</li>
+                    </ul>
+                    <a href="/pricing-page" class="cta-button cta">Obtén Acceso Inmediato</a>
+                </div>
+                
+                
+                
+
+                <div class="path-card" id="teams-path">
+                    <h3>Para Equipos</h3>
+                    <p><strong>Resultado:</strong> Implementa IA de forma segura y a escala. Capacita a tu equipo, fortalece la gobernanza y consigue de 3 a 5 automatizaciones de victoria rápida en 30 días.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check-circle"></i> Ideal para departamentos, agencias y empresas en crecimiento</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Establece políticas de IA aprobadas y marcos de riesgo</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Construye un pipeline de casos de uso para todo el departamento con seguimiento del ROI</li>
+                    </ul>
+                    <a href="/contact" class="cta-button cta">Agendar una Demo</a>
+                </div>
+            </div>
+            
+            <!-- Tarjeta de ancho completo para Propietarios de Negocios / Emprendedores -->
+            <div class="path-card" id="business-path" style="width: 100%; margin-top: 2rem;">
+                <h3>Para Dueños de Negocios y Emprendedores</h3>
+                <p><strong>Resultado:</strong> Escala tu negocio sin escalar los gastos generales. Automatiza operaciones, multiplica tu impacto y construye sistemas impulsados por IA que funcionen 24/7.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check-circle"></i> Diseñado para fundadores, emprendedores individuales y propietarios de pequeñas empresas</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Obtén una hoja de ruta de IA personalizada adaptada a tu modelo de negocio</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Aprende a construir y entrenar agentes de IA que manejen marketing, servicio al cliente y operaciones</li>
+                </ul>
+                <a href="/pricing-page" class="cta-button cta">Comienza Tu Prueba de 14 Días Ahora</a>
+                <p style="text-align: center; margin-top: 0.75rem; font-size: var(--smaller-font-size); opacity: 0.8;">Prueba de 14 días • Empieza en cualquier momento • Obtén la certificación <i class="fa-solid fa-award" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+            </div>
+        </section>
+
+        <!-- Sección de Habilidades -->
+        <section class="skills-section container" style="animation-delay: 0.8s;">
+            <div class="skills-content">
+                <h2>De lo que Serás Capaz</h2>
+                <ul class="icon-list">
+                    <li><i class="fa-solid fa-bullseye"></i> Delimitar casos de uso de IA de alto ROI con nuestro marco de Valor vs. Complejidad.</li>
+                    <li><i class="fa-solid fa-lightbulb"></i> Diseñar prompts seguros para la empresa y estrategias de recuperación que perduren.</li>
+                    <li><i class="fa-solid fa-robot"></i> Construir automatizaciones sin código (ej., Power Automate/Zapier) que ahorren horas semanalmente.</li>
+                    <li><i class="fa-solid fa-pen-fancy"></i> Crear flujos de trabajo impulsados por LLM para investigación, análisis y contenido, con control de calidad y listos para auditoría.</li>
+                    <li><i class="fa-solid fa-award"></i> Presentar un proyecto final de IA con impacto medible (tiempo ahorrado, mejora de calidad, reducción de errores).</li>
+                </ul>
+                <p class="microcopy">Conclusión clave: Las habilidades se enmarcan como resultados de negocio. Un currículo flexible e interactivo diseñado para darte confianza, claridad y superpoderes prácticos.</p>
+                
+                <div style="margin-top: 2rem;">
+                    <a href="/courses" class="cta-button">Explorar Todos los Cursos →</a>
+                </div>
+            </div>
+            
+            <div class="skills-image">
+                <div class="fading-carousel">
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/6948f379bb79e738cd6461df425007e8c85fb244.png" alt="Desarrollo de Habilidades de IA 1" class="carousel-image active">
+                    
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/8f9d7ca49f5f2ba1dea6fc017bb0c115f905fb5c.png" alt="Desarrollo de Habilidades de IA 2" class="carousel-image">
+                    
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/5d979a95934b87a027783c0a05091ea0a3c8739c.png" alt="Desarrollo de Habilidades de IA 3" class="carousel-image">
+                    
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/d97dd3aa72d875f8fe4b9dff81fca14f22507491.png" alt="Desarrollo de Habilidades de IA 4" class="carousel-image">
+                    
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/bb6f8c5e2c2abc90e4bd49eefaa7be4352dc369a.png" alt="Desarrollo de Habilidades de IA 5" class="carousel-image">
+                    
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/bbd85c7b291f3d6ec0228482d00fff019b11fab4.png" alt="Desarrollo de Habilidades de IA 6" class="carousel-image">
+                    
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/169792e23fc88c63ce3ed51b9984fc88e734614a.png" alt="Desarrollo de Habilidades de IA 7" class="carousel-image">
+                </div>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- Sección Resumen del Currículum (Módulos Flexibles) -->
+        <section class="timeline-section container" style="animation-delay: 1s;">
+            <h2>Tu Viaje de Dominio de IA</h2>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <!-- Nivel 1: Fundamentos de IA -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content left">
+                        <div class="timeline-week">Nivel 1: Fundamentos de IA</div>
+                        <div class="timeline-title">Habla de IA con Confianza</div>
+                        <p>Cómo funciona realmente la IA. Sin jerga. Explícalo a cualquiera. Detecta exageraciones. Sabe qué es real.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #6b7280;">✓ Certificación por cuestionario <i class="fa-solid fa-award" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+                    </div>
+                    <div class="timeline-content right"></div>
+                </div>
+                
+                <!-- Nivel 2: Seguridad, Privacidad y Cumplimiento -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content left"></div>
+                    <div class="timeline-content right">
+                        <div class="timeline-week">Nivel 2: Barreras de Seguridad en IA</div>
+                        <div class="timeline-title">Usa IA Sin Riesgos</div>
+                        <p>Saber qué no compartir. Prácticas seguras para la empresa. Reglas simples que te protegen a ti y a tus datos.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #6b7280;">✓ Certificación por cuestionario <i class="fa-solid fa-award" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+                    </div>
+                </div>
+                
+                <!-- Nivel 3: Elaboración de Prompts -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content left">
+                        <div class="timeline-week">Nivel 3: Elaboración de Prompts</div>
+                        <div class="timeline-title">Obtén Grandes Resultados Cada Vez</div>
+                        <p>Deja de adivinar. Construye prompts que funcionen. Haz que la IA trabaje para ti, no al revés.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #6b7280;">✓ Certificación por cuestionario <i class="fa-solid fa-award" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+                    </div>
+                    <div class="timeline-content right"></div>
+                </div>
+                
+                <!-- Nivel 4: Construyendo Tu Cerebro de IA -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content left"></div>
+                    <div class="timeline-content right">
+                        <div class="timeline-week">Nivel 4: Construyendo Tu Cerebro de IA</div>
+                        <div class="timeline-title">Construye Asistentes Que Conozcan Tu Trabajo</div>
+                        <p>Crea asistentes de IA para tus necesidades. Conecta la IA a tu conocimiento. No se requiere codificación.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #6b7280;">✓ Certificación por cuestionario <i class="fa-solid fa-award" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+                    </div>
+                </div>
+                
+                <!-- Nivel 5: Agentes de IA Autónomos -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content left">
+                        <div class="timeline-week">Nivel 5: Sistemas de IA Automatizados</div>
+                        <div class="timeline-title">Comprende los Sistemas de IA Automatizados</div>
+                        <p>Aprende cómo la IA se conecta a las herramientas (MCP). Comprende los conceptos de agentes. Úsalos de manera eficiente y segura.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #6b7280;">✓ Certificación por cuestionario <i class="fa-solid fa-award" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+                    </div>
+                    <div class="timeline-content right"></div>
+                </div>
+                
+                <!-- Avanzado: Lo que viene después (no es un nivel, solo una mirada hacia adelante) -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content left"></div>
+                    <div class="timeline-content right">
+                        <div class="timeline-week">Nivel Avanzado</div>
+                        <div class="timeline-title">Construye Tu Fuerza Laboral Autónoma de IA</div>
+                        <p>¿Listo para más? Implementa agentes que actúen en tu nombre. Orquesta flujos de trabajo multiagente complejos.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #6b7280;">Pista avanzada separada <i class="fa-solid fa-rocket" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="/aim-syllabus" target="_blank" class="cta-button">Descargar Temario Completo (PDF)</a>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <!-- Sección de prueba social y resultados -->
+        <section class="section social-proof-section container" style="animation-delay: 1.2s;" id="social-proof-logos-section">
+            <div style="text-align: center;">
+                <h2>Prueba Social y Resultados</h2>
+            </div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <p style="font-size: 1.2rem; color: var(--title-color); font-weight: 600;">
+                    <span style="color: var(--skin-color);">92%</span> reporta ahorro de tiempo en 2 semanas; promedio de <span style="color: var(--skin-color);">6.4 horas/semana</span> ahorradas para la Semana 6.
+                </p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"Nuestro equipo de operaciones de ventas automatizó los informes y recuperó 12 horas/semana, de forma segura."</p>
+                    <span class="testimonial-author"></span>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Este es el primer programa de IA que se mantuvo. Nos fuimos con manuales de jugadas, no teoría."</p>
+                    <span class="testimonial-author"></span>
+                </div>
+                <div class="testimonial-card">
+                    <p>"AIM transformó nuestra forma de abordar la IA. El enfoque práctico y manual marcó toda la diferencia."</p>
+                    <span class="testimonial-author"></span>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Nuestro equipo de operaciones de ventas automatizó los informes y recuperó 12 horas/semana, de forma segura."</p>
+                    <span class="testimonial-author"></span>
+                </div>
+            </div>
+            
+            <!-- Sección de Logos de Clientes -->
+            <div class="social-proof-bar" style="margin-top: 3rem; background: none; border: none; box-shadow: none;">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/adfbe4b66ee2c54924e5da6b4e8d72e6db6e68f7.png" alt="Logo Cliente 1">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/5aa3bb477757aa36b2754adf6d6c1be44984a04a.png" alt="Logo Cliente 2">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/7b847c7acf12787c4126492817990b89f539bba3.png" alt="Logo Cliente 3">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/8bd11e84b759b81d8be788124ff5ffe182229d9a.png" alt="Logo Cliente 4">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/69a5112f5665de321d08222a061f9d2e296371fc.png" alt="Logo Cliente 5">
+                <img src="https://bucket.mlcdn.com/a/3336/3336910/images/584c83a15b54231a375d98a1a47dab6a22bca770.png" alt="Logo Cliente 6">
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://testimonials.aimbootcamp.com" class="cta-button">Déjanos Tu Comentario →</a>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <!-- Sección de Precios y Garantías -->
+        <section class="pricing-section container" style="animation-delay: 1.4s;">
+            <h2>Precios y Garantías</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Para Individuos</h3>
+                    <p class="price">$150/año</p>
+                    <p class="guarantee">Planes de pago disponibles.</p>
+                    <p class="guarantee"><strong>Garantía:</strong> Pruébalo por 14 días. Si no está dando valor, cancela antes de que se te cobre.</p>
+                    
+                    <ul>
+                        <li><i class="fa-solid fa-check-circle"></i> Construido por la Industria</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Acceso Ilimitado</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Recursos Profesionales</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Actualizaciones de por vida</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Acceso a la Comunidad</li>
+                        <li> </li>
+                    </ul>
+                    
+                    <a href="/pricing-page" class="cta-button cta">Empieza Prueba de 14 Días</a>
+                </div>
+                
+                
+                
+                
+
+                <div class="pricing-card">
+                    <h3>Para Equipos</h3>
+                    <p class="price">A Cotizar</p>
+                    <p class="guarantee">Según tamaño del equipo y objetivos.</p>
+                    <p class="guarantee">Solicita una propuesta personalizada adaptada a los objetivos de tu organización.</p>
+                    
+                    <ul>
+                        <li><i class="fa-solid fa-check-circle"></i> Cohorte privada</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Currículum a medida</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Taller de gobernanza</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Panel de ROI</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Opción presencial</li>
+                    </ul>
+                    <a href="/contact" class="cta-button cta">Obtén Precios Corporativos</a>
+                </div>
+            </div>
+            <p class="microcopy" style="margin-top: 2rem; text-align: center;">Las inversiones de riesgo reducen la fricción. Ofrecemos planes de pago y una garantía sólida. <i class="fa-solid fa-shield" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+        </section>
+
+        <!-- Sección de FAQs (manejo de objeciones) -->
+        <section class="faq-section container" style="animation-delay: 1.6s;">
+            <h2>Preguntas Frecuentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Están seguros mis datos? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Utilizamos herramientas seguras para la empresa y las mejores prácticas; recibirás una lista de verificación de manejo de datos y una plantilla de política.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Qué tan técnico necesito ser? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>No se requiere codificación; se incluyen laboratorios opcionales de bajo código.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Esto ayudará a mi carrera o negocio? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Completarás un proyecto final y obtendrás un certificado con prueba práctica de impacto. Esto no es solo teoría; construirás proyectos del mundo real que demuestren tus habilidades a empleadores o clientes. El certificado valida tu experiencia y te da evidencia tangible de tus capacidades.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Cuál es el compromiso de tiempo? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>4–6 horas/semana durante 6 semanas, en vivo + asincrónico, diseñado para profesionales a tiempo completo.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Pueden adaptarlo a nuestra industria? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>¡Sí! Definitivamente podemos diseñar un currículum a medida para tu industria, ya sea finanzas, salud, venta al por menor, manufactura y más.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Necesito experiencia previa? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>¡No se requiere experiencia previa! Empezamos desde lo básico y gradualmente avanzamos hacia conceptos más complejos. El curso está diseñado para principiantes motivados a aprender y profesionales que buscan mejorar sus habilidades.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Cómo funciona el acceso? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Tienes dos opciones flexibles:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Acceso de por vida:</strong> Paga una vez y poséelo para siempre. Perfecto si quieres aprender a tu propio ritmo y no preocuparte nunca de que el acceso caduque.</li>
+                        <li><strong>Ilimitado Anual:</strong> Suscríbete anualmente para acceso completo. Genial si prefieres costos iniciales más bajos o quieres completar el material en un año.</li>
+                    </ul>
+                    <p style="margin-top: 15px;">Ambas opciones incluyen el mismo contenido completo, certificado y acceso a la comunidad. Puedes cambiar entre planes o cancelar en cualquier momento.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Hay garantía de devolución de dinero? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>No podemos ofrecer un reembolso después de la prueba de 14 días. Los usuarios deben cancelar antes de que se les cobre. Si no estás satisfecho con el curso por cualquier motivo, puedes cancelar tu membresía; no se hacen preguntas.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Recibiré apoyo si me quedo atascado? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Tendrás acceso a nuestro foro comunitario privado donde los instructores y otros miembros pueden ayudar. También ofrecemos sesiones de preguntas y respuestas en vivo y personalizadas para abordar tus preguntas específicas.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Puedo cambiar de anual a vitalicio? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>¡Sí! Si empiezas con una suscripción anual y decides que quieres acceso de por vida, puedes actualizar en cualquier momento. Acreditaremos el tiempo restante de tu suscripción al precio de por vida.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Qué tipo de certificado recibiré? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Recibirás un certificado digital verificado que puedes compartir en LinkedIn, añadir a tu currículum o mostrar a los empleadores. Incluye el nombre del curso, tu nombre, fecha de finalización y un ID de verificación único que cualquiera puede verificar escaneando un código QR.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Hay descuentos para equipos? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>¡Sí! Ofrecemos precios especiales para equipos y organizaciones. Contáctanos en team@aimbootcamp.com para tarifas de grupo y soluciones empresariales personalizadas.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Qué pasa después de que complete el programa? <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Te unirás a nuestra red de antiguos alumnos con acceso a oportunidades de aprendizaje continuo y recursos exclusivos. También ofrecemos cursos avanzados donde los antiguos alumnos obtienen descuentos especiales.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Pie de página estándar de AIM -->
+    <footer class="footer">
+        <div class="footer-bg">
+            <div class="footer-container container"> 
+                <!-- Bloque Logo/Marca -->
+                <div class="footer-brand">
+                    <img src="https://bucket.mlcdn.com/a/3336/3336910/images/423c1fc4e18a130b04800feedaa2eb5fcb41df44.png" alt="Logo Project Freedom" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3 class="footer-title">AIM™</h3>
+                        <span class="footer-subtitle">Programa de Dominio de IA</span>
+                    </div>
+                </div>
+        
+                <!-- Enlaces del pie de página -->
+                <ul class="footer-links">
+                    <li><a href="/" class="footer-links">Inicio</a></li>
+                    <li><a href="/about" class="nav-link">Acerca</a></li>
+                    <li><a href="/courses" class="footer-links">Cursos</a></li>
+                    <li><a href="/pricing-page" class="footer-links">Precios</a></li>
+                    <li><a href="/Resources" class="footer-links">Recursos</a></li>                  
+                    <li><a href="/contact" class="footer-links">Contacto</a></li>
+                </ul>
+
+                <!-- Iconos Sociales -->
+                <div class="footer-socials">
+                    <a href="https://www.youtube.com/@" target="_blank" class="footer-social" aria-label="Youtube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://www.facebook.com/" target="_blank" class="footer-social" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer-social" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/" target="_blank" class="footer-social" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            <p class="footer-copy">Copyright &#169; 2024 • Todos los derechos reservados.<br>Desarrollado con 🧡 por <a href="https://bebelldigitalsolutions.com">Bebell Digital Solutions</a></p>
+        </div>
+    </footer>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Lógica del Loader de Página ---
+            const pageLoader = document.querySelector('.page-loader');
+            window.addEventListener('load', () => {
+                pageLoader.classList.add('hidden');
+                setTimeout(() => pageLoader.remove(), 300);
+            });
+
+            // --- Lógica de clic del menú desplegable ---
+            const coursesLink = document.getElementById('courses-link');
+            const submenu = document.getElementById('courses-submenu');
+            const navBar = document.getElementById('nav-bar');
+
+            if (coursesLink && submenu) {
+                // 1. Alternar visibilidad al hacer clic
+                coursesLink.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    const isMobile = window.innerWidth <= 980; // PUNTO DE QUIEBRE ACTUALIZADO
+                    
+                    if (isMobile) {
+                        submenu.classList.toggle('active');
+                    } else {
+                        submenu.classList.toggle('active');
+                    }
+                    e.stopPropagation(); 
+                });
+
+                // 2. Cerrar menú al hacer clic fuera
+                document.addEventListener('click', (e) => {
+                    if (navBar && !navBar.contains(e.target) && submenu.classList.contains('active')) {
+                        submenu.classList.remove('active');
+                    }
+                });
+
+                // 3. Evitar que los clics dentro del submenú lo cierren
+                submenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            // --- Lógica del Acordeón de Preguntas Frecuentes (FAQ) ---
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+
+                question.addEventListener('click', () => {
+                    // Cerrar todas las demás preguntas frecuentes abiertas
+                    faqItems.forEach(otherItem => {
+                        const otherQuestion = otherItem.querySelector('.faq-question');
+                        const otherAnswer = otherItem.querySelector('.faq-answer');
+                        if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                            otherQuestion.classList.remove('active');
+                            otherAnswer.classList.remove('show');
+                            otherAnswer.style.maxHeight = null;
+                        }
+                    });
+
+                    // Alternar la pregunta frecuente actual
+                    question.classList.toggle('active');
+                    answer.classList.toggle('show');
+
+                    if (answer.classList.contains('show')) {
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    } else {
+                        answer.style.maxHeight = null;
+                    }
+                });
+            });
+
+            // --- Animación escalonada para las secciones ---
+            const sections = document.querySelectorAll('.section, .why-aim-section, .skills-section, .timeline-section, .faq-section, .path-section, .pricing-section, .boxes, .social-proof-bar');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // --- Animación de la línea de tiempo ---
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            timelineItems.forEach(item => {
+                timelineObserver.observe(item);
+            });
+
+            // --- Lógica de alternancia del menú móvil (Icono de hamburguesa) ---
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            const toggleIcon = document.getElementById('toggle-icon');
+
+            if (mobileToggle && navMenu && toggleIcon) {
+                mobileToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('mobile-open');
+                    
+                    if (navMenu.classList.contains('mobile-open')) {
+                        toggleIcon.classList.remove('fa-bars');
+                        toggleIcon.classList.add('fa-xmark');
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        toggleIcon.classList.remove('fa-xmark');
+                        toggleIcon.classList.add('fa-bars');
+                        document.body.style.overflow = 'auto';
+                        if (submenu) submenu.classList.remove('active');
+                    }
+                });
+                
+                navMenu.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 980 && !link.parentElement.classList.contains('has-submenu')) {
+                            navMenu.classList.remove('mobile-open');
+                            toggleIcon.classList.remove('fa-xmark');
+                            toggleIcon.classList.add('fa-bars');
+                            document.body.style.overflow = 'auto';
+                            if (submenu) submenu.classList.remove('active');
+                        }
+                    });
+                });
+
+                // Cerrar menú al hacer clic fuera en móvil
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 980 && 
+                        navMenu.classList.contains('mobile-open') &&
+                        !navMenu.contains(e.target) && 
+                        e.target !== mobileToggle) {
+                        navMenu.classList.remove('mobile-open');
+                        toggleIcon.classList.remove('fa-xmark');
+                        toggleIcon.classList.add('fa-bars');
+                        document.body.style.overflow = 'auto';
+                        if (submenu) submenu.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Manejar el redimensionamiento de la ventana
+            window.addEventListener('resize', function() {
+                const isMobile = window.innerWidth <= 980; // PUNTO DE QUIEBRE ACTUALIZADO
+                
+                if (!isMobile && navMenu && navMenu.classList.contains('mobile-open')) {
+                    navMenu.classList.remove('mobile-open');
+                    if (toggleIcon) {
+                        toggleIcon.classList.remove('fa-xmark');
+                        toggleIcon.classList.add('fa-bars');
+                    }
+                    document.body.style.overflow = 'auto';
+                }
+                
+                if (submenu) {
+                    submenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const now = new Date();
+        const month = now.getMonth() + 1;
+        
+        if (month === 12 || month === 1 || month === 2) {
+            const snow = document.createElement('div');
+            snow.className = 'snowflakes-blurry';
+            document.body.appendChild(snow);
+        }
+    </script>
+    
+    
+    
+    
+    <script>    
+  // Añade esto al final de tu script existente, dentro del DOMContentLoaded
+
+// Cambiar el texto del badge después de 5 segundos
+setTimeout(() => {
+    const statusText = document.getElementById('statusText');
+    if (statusText) {
+        statusText.textContent = 'Sistemas Operacionales';
+    }
+}, 5000); // 5000ms = 5 segundos  
+    </script>    
+    
+    
+    
+    
+    
+
+    <!-- Widget VOLVER ARRIBA -->
+    <script>
+    // Crear botón Volver Arriba Dinámicamente
+    document.addEventListener("DOMContentLoaded", function () {
+        // Crear el contenedor del botón
+        const backToTop = document.createElement("div");
+        backToTop.id = "back-to-top";
+        backToTop.style.position = "fixed";
+        backToTop.style.bottom = "20px";
+        backToTop.style.right = "20px";
+        backToTop.style.display = "none";
+        backToTop.style.cursor = "pointer";
+        backToTop.style.zIndex = "9999";
+
+        // Crear la imagen dentro del botón
+        const backToTopImg = document.createElement("img");
+        backToTopImg.src = "https://bucket.mlcdn.com/a/3336/3336910/images/972c5065cffe83955d5322557dcdce28eca170e5.png";
+        backToTopImg.alt = "Volver arriba";
+        backToTopImg.style.width = "40px";
+        backToTopImg.style.height = "40px";
+
+        // Añadir imagen al botón
+        backToTop.appendChild(backToTopImg);
+
+        // Añadir botón al cuerpo
+        document.body.appendChild(backToTop);
+
+        // Detector de Evento de Desplazamiento
+        window.addEventListener("scroll", function () {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTop.style.display = "block";
+            } else {
+                backToTop.style.display = "none";
+            }
+        });
+
+        // Evento de clic para desplazarse arriba
+        backToTop.addEventListener("click", function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    });
+    </script>
+    <!-- Fin Widget VOLVER ARRIBA -->
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <script>
+    // Carrusel de Imágenes Desvanecientes
+    document.addEventListener('DOMContentLoaded', function() {
+        const carouselImages = document.querySelectorAll('.carousel-image');
+        if (carouselImages.length === 0) return;
+        
+        let currentIndex = 0;
+        const totalImages = carouselImages.length;
+        
+        function changeImage() {
+            // Eliminar clase activa de la imagen actual
+            carouselImages[currentIndex].classList.remove('active');
+            
+            // Calcular el siguiente índice
+            currentIndex = (currentIndex + 1) % totalImages;
+            
+            // Añadir clase activa a la siguiente imagen
+            carouselImages[currentIndex].classList.add('active');
+        }
+        
+        // Cambiar imagen cada 4 segundos
+        setInterval(changeImage, 4000);
+    });
+    </script>
+    
+</body>
+</html>
