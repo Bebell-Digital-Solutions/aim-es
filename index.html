@@ -44,12 +44,12 @@
 
         /* --- Base y Scrollbar --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        
+        
         html { scroll-behavior: smooth; }
         
-        
-        
-        
-        
+    
         body {
             margin: 0;
             font-family: var(--body-font);
@@ -60,7 +60,7 @@
             overflow-x: hidden;
         }
         
-        main { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+        main { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
         
         img { max-width: 100%; height: auto; display: block; }
         
@@ -283,6 +283,13 @@
         .nav-cta.desktop-cta-only { display: block; }
         
    
+   
+   
+   
+   
+   
+   
+   
         
         /* --- Pie de página (Footer principal de la página) --- */
         .footer { padding-top: 2rem; }
@@ -369,7 +376,11 @@
         
         
         
-        
+
+
+
+
+
         
         
         
@@ -385,6 +396,8 @@
             opacity: 0; /* Comienza oculto para la animación */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        
+        
 
         .section:hover {
             transform: translateY(-5px);
@@ -606,7 +619,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1rem;
+            gap: 0rem;
             margin: 3rem auto;
             margin-top: 0;
             flex-wrap: wrap;
@@ -743,7 +756,10 @@
         
         
         
-        
+ 
+ 
+ 
+ 
         
         
         /* Sección Elige Tu Camino */
@@ -755,15 +771,21 @@
             margin-bottom: 3rem;
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
-            max-width: 980px;
+            max-width: 960px;
         }
 
         .path-section h2 {
             text-align: center;
             padding-left: 0;
         }
+        
+        
+        
 
         .path-section h2::before { display: none; }
+        
+        
+        
 
         .path-options {
             display: grid;
@@ -771,6 +793,9 @@
             gap: 2rem;
             margin-top: 2rem;
         }
+        
+        
+        
         
         .path-card {
             background-color: var(--box-color);
@@ -784,10 +809,15 @@
             flex-direction: column;
         }
         
+        
+        
+        
         .path-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 15px rgba(255, 80, 17, 0.2);
         }
+        
+        
         
         .path-card h3 {
             color: var(--skin-color);
@@ -795,16 +825,22 @@
             text-align: left;
         }
         
+        
+        
         .path-card p {
             margin-bottom: 1rem;
             font-size: var(--small-font-size);
         }
+        
+        
         
         .path-card ul {
             list-style: none;
             padding-left: 0;
             margin-bottom: 1.5rem;
         }
+        
+        
         
         .path-card ul li {
             display: flex;
@@ -813,12 +849,16 @@
             font-size: var(--small-font-size);
         }
         
+        
+        
         .path-card ul li i {
             color: var(--skin-color);
             margin-right: 0.6rem;
             font-size: 0.9rem;
             line-height: 1.4;
         }
+        
+        
         
         .path-card .cta {
             display: block;
@@ -1083,13 +1123,7 @@
             font-style: normal;
         }
         
-        
-        
-        
-        
-        
-        
-        
+     
         /* CSS Único para la Sección de Prueba Social Solo Logos */
         #social-proof-logos-section .social-proof-bar {
             display: flex;
@@ -1140,6 +1174,7 @@
             margin-bottom: 3rem;
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
+            max-width: 960px;
         }
 
         .pricing-section h2 {
@@ -1892,7 +1927,7 @@
             
             
                     <!-- 👇 NUEVO: ICONO DE TRADUCCIÓN (antes del CTA) -->
-        <a href="https://tudominio.com/version-en-ingles" class="nav-link translate-link" id="translate-icon" title="Cambiar idioma / Switch language">
+        <a href="https://aimbootcamp.com" class="nav-link translate-link" id="translate-icon" title="Cambiar idioma / Switch language">
             <i class="fa-solid fa-language"></i> 
             <span class="translate-text"></span>
         </a>
@@ -1974,12 +2009,40 @@
         
         <!-- Barra de Prueba Social -->
         <section class="social-proof-bar container">
-            <p style="color: var(--skin-color); font-weight: 500; margin-right: 1rem; white-space: nowrap;">Funciona con:</p>
+            <p style="color: var(--skin-color); font-weight: 500; margin-right: 1rem; white-space: nowrap;">Usado Con:</p>
+            
+            
             <img src="https://bucket.mlcdn.com/a/3336/3336910/images/5a670bcb835fe1f260086188d1059285e3baab8e.png" alt="Logo OpenAI">
-            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/435e8f207e68acfb6e491f39a0defdbe88cd8709.png" alt="Logo Meta">
-            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/3ba4b1a4a17452494fb4272871453b8bbb4485d7.png" alt="Logo Google">
+            
+   
+   
+             <img src="https://bucket.mlcdn.com/a/3336/3336910/images/3ba4b1a4a17452494fb4272871453b8bbb4485d7.png" alt="Logo Google">  
+   
+   
+   
+   
+             <img src="https://bucket.mlcdn.com/a/3336/3336910/images/577a4563bf1222f9c941de16cad77cba37287fe9.png" alt="Logo Claude">  
+            
+            
+            
+            
+             <img src="https://bucket.mlcdn.com/a/3336/3336910/images/821d891535daca67e712832d24a93ea227de7ac0.png" alt="Logo Meta">
+             
+             
+
             <img src="https://bucket.mlcdn.com/a/3336/3336910/images/55834c6ba4b15fb016a860e42c6539c677cbfe27.png" alt="Logo Microsoft">
+            
+        
         </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         <!-- Sección Por Qué AIM (Propuestas de Valor) -->
         <section class="why-aim-section container" style="animation-delay: 0.4s;">
@@ -1996,6 +2059,9 @@
                 <img src="https://bucket.mlcdn.com/a/3336/3336910/images/1a6f90e9d77dc969ff7e463de8573a2c4851e23a.png" alt="Experiencia de Aprendizaje AIM">
             </div>
         </section>
+        
+        
+        
         
         
         
@@ -2029,6 +2095,11 @@
         
         
         
+        
+        
+        
+        
+        
         <!-- Sección Por Qué AIM (Propuestas de Valor) -->      
         <section class="why-aim-section container" style="animation-delay: 0.4s;">
             <div class="why-aim-content">
@@ -2056,7 +2127,7 @@
                 </div>
                 <p class="microcopy">Conclusión clave: Vendemos resultados, no horas.</p>
                 <div style="margin-top: 2rem;">
-                    <a href="/aim-syllabus" target="_blank" class="cta-button">Descargar el Temario →</a>
+                    <a href="/aim-syllabus" target="_blank" class="cta-button">Descargar el Temario (PDF) <i class="fa-solid fa-download"></i></a>
                 </div>
             </div>
             <div class="why-aim-image">
@@ -2109,9 +2180,17 @@
                     <li><i class="fa-solid fa-check-circle"></i> Aprende a construir y entrenar agentes de IA que manejen marketing, servicio al cliente y operaciones</li>
                 </ul>
                 <a href="/pricing-page" class="cta-button cta">Comienza Tu Prueba de 14 Días Ahora</a>
-                <p style="text-align: center; margin-top: 0.75rem; font-size: var(--smaller-font-size); opacity: 0.8;">Prueba de 14 días • Empieza en cualquier momento • Obtén la certificación <i class="fa-solid fa-award" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
+                <p style="text-align: center; margin-top: 1.5rem; font-size: var(--smaller-font-size); opacity: 0.8;">Prueba de 14 días • Empieza en cualquier momento • Obtén la certificación <i class="fa-solid fa-award" style="color: var(--skin-color); margin-left: 0.25rem;"></i></p>
             </div>
         </section>
+        
+        
+        
+        
+        
+        
+        
+        
 
         <!-- Sección de Habilidades -->
         <section class="skills-section container" style="animation-delay: 0.8s;">
@@ -2244,7 +2323,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 3rem;">
-                <a href="/aim-syllabus" target="_blank" class="cta-button">Descargar Temario Completo (PDF)</a>
+                <a href="/aim-syllabus" target="_blank" class="cta-button">Descargar Temario Completo (PDF) <i class="fa-solid fa-download"></i></a>
             </div>
         </section>
         
