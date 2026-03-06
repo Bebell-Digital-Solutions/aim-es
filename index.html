@@ -479,7 +479,14 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
             transition: all 0.3s ease;
         }
-        #nav-logo img { height: 35px; }
+
+
+        
+        #nav-logo img { 
+            height: 35px; 
+        }
+
+        
         
         /* Escritorio: nav-menu contiene todos los enlaces y es flex */
         #nav-menu { 
@@ -883,8 +890,10 @@ footer .footer-copy a:hover {
             justify-content: center;
             align-items: center;
             text-align: center;          
-            margin-top: 2rem; /* Compensa el padding-top del body */
+            margin-top: 0rem; /* Compensa el padding-top del body */
         }
+
+        
         
         .hero spline-viewer {
             position: absolute;
@@ -897,6 +906,8 @@ footer .footer-copy a:hover {
             z-index: 0;
             transform: scale(1.13);
         }
+
+        
         
         .hero-content {
             position: relative;
@@ -1686,7 +1697,7 @@ footer .footer-copy a:hover {
         /* ====================================================== */
         @media screen and (max-width: 980px) {
             body { 
-                padding-top: 6rem; /* Reduced spacing for mobile */
+                padding-top: 4.5rem; /* Reduced spacing for mobile */
             }
             
             
@@ -1702,14 +1713,20 @@ footer .footer-copy a:hover {
         top: 30px;
         }
 
+            
 
+   /* Mobile-specific hero spacing fixes */
+    .hero {
+        margin-top: 0; /* Remove any margin */
+        min-height: calc(100vh - 4.5rem); /* Adjust for nav height */
+    }
 
 
     /* Mobile-specific hero spacing fixes */
     .hero-content {
-        padding-top: 4rem; /* Increased top padding */
+        padding-top: 1rem; /* Increased top padding */
         padding-bottom: 2rem;
-        min-height: 100vh;
+        min-height: calc(100vh - 4.5rem);
         justify-content: center; /* Changed back to center */
     }
     
@@ -1721,7 +1738,13 @@ footer .footer-copy a:hover {
     .hero-content h1 {
         font-size: 2rem; /* Slightly smaller for mobile */
         margin-top: 0.5rem;
+        margin-bottom: 1rem;
     }
+
+
+    .hero-cta-group {
+        margin-top: 0.5rem;
+    }            
     
     .secondary-cta-link {
         margin-bottom: 2rem;
